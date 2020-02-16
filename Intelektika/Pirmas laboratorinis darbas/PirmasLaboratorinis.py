@@ -2,25 +2,6 @@ import re
 import csv
 
 
-class Data:
-    def __init__(self, ids, duration, codec, bitrate, framerate, i, p, b, frames, i_size, p_size, size, o_codec, o_framerate, umem, utime):
-        self.ids = ids
-        self.duration = duration
-        self.codec = codec
-        self.bitrate = bitrate
-        self.framerate = framerate
-        self.i = i
-        self.p = p
-        self.frames = frames
-        self.i_size = i_size
-        self.p_size = p_size
-        self.size = size
-        self.o_codec = o_codec
-        self.o_framerate = o_framerate
-        self.umem = umem
-        self.utime = utime
-
-
 class Continuous:
     def __init__(self, name, amount, missing, cardinality, min, max, quartile1, quartile3, average, median, standardDeviation):
         self.name= name;
@@ -51,14 +32,60 @@ class Categorical:
 
 index = 0
 dataList = []
-continuousData = []
+nameList = []
+continuousData = {}
 with open('transcoding_mesurment.tsv') as tsvfile:
   reader = csv.DictReader(tsvfile, dialect='excel-tab')
   for row in reader:
     # print(row)
-    for rowData in row:
-        print(rowData)
+    dataList.append(row)
 
-    tempData = Data(row['id'], row['duration'], row['codec'], row['bitrate'], row['framerate'], row['i'], row['p'], row['frames'], row['i_size'], row['p_size'], row['size'], row['o_codec'], row['o_bitrate'], row['o_framerate'], row['umem'], row['utime'])
-    dataList.append(tempData)
+medianCheck = False
+medianIndex = 0
+# initialization
+for row in dataList:
+    for names in row:
+        continuousData[names] = Continuous(names, len(dataList), 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        nameList.append(names)
+
+    if len(dataList) % 2 == 0:
+        medianCheck = True
+        medianIndex = int(len(dataList) / 2)
+    else:
+        medianIndex = int(len(dataList) / 2)
+        medianIndex += 1
+    break
+
+for name in nameList:
+    maxVal = 0.0
+    minVal = 0.0
+    index = 0
+
+    if name != "id" and name != "codec" and name != "o_codec":
+        cardinalityTemp = []
+        for row in dataList:
+            if not cardinalityTemp.__contains__(row[name]):
+                cardinalityTemp.append(row[name])
+
+            if maxVal < float(row[name]):
+                maxVal = float(row[name])
+
+            if minVal > float(row[name]):
+                minVal = float(row[name])
+
+            continuousData[name].average += float(row[name])
+
+            if medianCheck is True and medianIndex <= index <= medianIndex + 1:
+                continuousData[name].median += float(row[name])
+
+            if medianCheck is True and index > medianIndex + 1:
+                continuousData[name].median = continuousData[name].median / 2
+
+            index += 1
+
+        continuousData[name].average = continuousData[name].average / continuousData[name].amount
+        continuousData[name].max = maxVal
+        continuousData[name].min = minVal
+        continuousData[name].cardinality = len(cardinalityTemp)
+        
 
