@@ -4,7 +4,7 @@ import csv
 
 class Continuous:
     def __init__(self, name, amount, missing, cardinality, min, max, quartile1, quartile3, average, median, standardDeviation):
-        self.name= name;
+        self.name = name
         self.amount = amount
         self.missing = missing
         self.cardinality = cardinality
@@ -30,6 +30,89 @@ class Categorical:
         self.modPercentage2 = modPercentage2
 
 
+def median(datalistTmp, name):
+    medianIndex = 0
+    check = False
+    index = 0
+    if len(datalistTmp) % 2 == 0:
+        medianIndex = int(len(datalistTmp) / 2)
+        check = True
+    else:
+        medianIndex = round(len(datalistTmp) / 2, 0)
+
+    for tmpRow in datalistTmp:
+        if check is True and medianIndex <= index <= medianIndex + 1:
+            continuousData[name].median += float(tmpRow[name])
+
+        if check is True and index == medianIndex + 2:
+            continuousData[name].median = continuousData[name].median / 2
+        index += 1
+
+
+def quartile1Calculation(datalistTmp, name):
+    quartile1 = 0
+    medianIndex = 0
+    index = 0
+    check = False
+    if len(datalistTmp) % 2 == 0:
+        check = True
+        medianIndex = int(len(datalistTmp) / 2)
+        quartile1 = medianIndex / 2
+    else:
+        medianIndex = round(len(datalistTmp) / 2, 0)
+        quartile1 = round(medianIndex / 2, 0)
+
+    for tmpRow in datalistTmp:
+        if check is True and quartile1 <= index <= quartile1 + 1:
+            continuousData[name].quartile1 += float(tmpRow[name])
+
+        if check is True and index == quartile1 + 2:
+            continuousData[name].quartile1 = continuousData[name].quartile1 / 2
+
+        index += 1
+
+
+def quartile3Calculation(datalistTmp, name):
+    quartile1 = 0
+    medianIndex = 0
+    index = 0
+    check = False
+    if len(datalistTmp) % 2 == 0:
+        check = True
+        medianIndex = int(len(datalistTmp) / 2)
+        quartile3 = medianIndex + int(medianIndex / 2)
+    else:
+        medianIndex = round(len(datalistTmp) / 2, 0)
+        quartile3 = medianIndex + int(medianIndex / 2)
+
+    for tmpRow in datalistTmp:
+        if check is True and quartile3 <= index <= quartile3 + 1:
+            continuousData[name].quartile3 += float(tmpRow[name])
+
+        if check is True and index == quartile3 + 2:
+            continuousData[name].quartile3 = continuousData[name].quartile3 / 2
+
+        index += 1
+
+def deviation(datalistTmp, name):
+    u = 0
+    sum = 0
+
+    for tmpRow in datalistTmp:
+        u += tmpRow[name]
+
+    u = u / len(datalistTmp)
+
+    for tmpRow in datalistTmp:
+        sum += pow(tmpRow[name] - u, 2)
+
+    ats = pow((1/len(datalistTmp)) * sum, 0.5)
+
+
+
+
+
+
 index = 0
 dataList = []
 nameList = []
@@ -40,32 +123,22 @@ with open('transcoding_mesurment.tsv') as tsvfile:
     # print(row)
     dataList.append(row)
 
-medianCheck = False
-medianIndex = 0
 # initialization
 for row in dataList:
     for names in row:
         continuousData[names] = Continuous(names, len(dataList), 0, 0, 0, 0, 0, 0, 0, 0, 0)
         nameList.append(names)
-
-    if len(dataList) % 2 == 0:
-        medianCheck = True
-        medianIndex = int(len(dataList) / 2)
-    else:
-        medianIndex = int(len(dataList) / 2)
-        medianIndex += 1
     break
 
 for name in nameList:
     maxVal = 0.0
     minVal = 0.0
-    index = 0
 
     if name != "id" and name != "codec" and name != "o_codec":
-        cardinalityTemp = []
+        cardinalityTemp = set()
         for row in dataList:
-            if not cardinalityTemp.__contains__(row[name]):
-                cardinalityTemp.append(row[name])
+            if row[name] not in cardinalityTemp:
+                cardinalityTemp.add(row[name])
 
             if maxVal < float(row[name]):
                 maxVal = float(row[name])
@@ -75,17 +148,11 @@ for name in nameList:
 
             continuousData[name].average += float(row[name])
 
-            if medianCheck is True and medianIndex <= index <= medianIndex + 1:
-                continuousData[name].median += float(row[name])
-
-            if medianCheck is True and index > medianIndex + 1:
-                continuousData[name].median = continuousData[name].median / 2
-
-            index += 1
+        median(dataList, name)
+        quartile1Calculation(dataList, name)
+        quartile3Calculation(dataList, name)
 
         continuousData[name].average = continuousData[name].average / continuousData[name].amount
         continuousData[name].max = maxVal
         continuousData[name].min = minVal
         continuousData[name].cardinality = len(cardinalityTemp)
-        
-
