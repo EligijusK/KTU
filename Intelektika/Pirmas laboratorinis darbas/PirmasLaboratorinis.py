@@ -27,6 +27,7 @@ class Categorical:
         self.mod = mod
         self.modFrequency = modFrequency
         self.modPercentage = modPercentage
+        self.mod2 = mod2
         self.modFrequency2 = modFrequency2
         self.modPercentage2 = modPercentage2
 
@@ -110,11 +111,6 @@ def deviation(datalistTmp, name):
     ats = pow((1/len(datalistTmp)) * sum, 0.5)
 
 
-def myFunc(e):
-  return e['year']
-
-
-
 index = 0
 dataList = []
 nameList = []
@@ -133,7 +129,7 @@ for row in dataList:
     for names in row:
         if names != "codec" and names != "o_codec" and names != "id":
             continuousData[names] = Continuous(names, len(dataList), 0, 0, 0, 0, 0, 0, 0, 0, 0)
-        elif names == "codec" and names == "o_codec":
+        elif names == "codec" or names == "o_codec":
             categoricalData[names] = Categorical(names, len(dataList), 0, 0, 0, 0, 0, 0, 0, 0)
         nameList.append(names)
     break
@@ -144,6 +140,8 @@ for name in nameList:
     for row in dataList:
         try:
             f = int(row[name])
+            if row[name] == "NaN" or row[name] == "NAN" or row[name] == "nan" or row[name] == " " or  row[name] == "":
+                f = int("hack")
         except ValueError:
             if name in dataEmpty and name != "id" and name != "codec" and name != "o_codec":
                 try:
@@ -153,8 +151,12 @@ for name in nameList:
                 else:
                     dataWithoutEmpty[name].append(float(row[name]))
 
-            elif name == "id" or name == "codec" or name == "o_codec" and row[name] == "" and row[name] == "nan" and row[name] == "NaN" and row[name] == "NAN":
+            elif (name == "id" or name == "codec" or name == "o_codec") and row[name] == "" and row[name] == "nan" and row[name] == "NaN" and row[name] == "NAN":
                 dataEmpty[name] += 1
+            elif name == "id" or name == "codec" or name == "o_codec":
+                dataWithoutEmpty[name].append(row[name])
+
+
         else:
             dataWithoutEmpty[name].append(int(row[name]))
 
@@ -181,26 +183,31 @@ for name in nameList:
         continuousData[name].missing = 100 / len(dataList) * dataEmpty[name]
         # print(continuousData[name].max)
 
-for name in nameList:
 
-    if name == "codec" and name == "o_codec":
-        cardinalityTemp = set()
-        modCount = []
-        for row in dataWithoutEmpty[name]:
-            if row not in cardinalityTemp:
-                cardinalityTemp.add(row)
-                modCount[name].append({row:0})
-                modCount[name][row] = 0
-            else:
-                modCount[row] += 1
 
-            continuousData[name].average += float(row)
+def Categorical(names, dataNoEmpty, data):
+    for nameTemp in names:
 
-        sortedData = sorted(dataWithoutEmpty[name])
+        if nameTemp == "codec" or nameTemp == "o_codec":
+            cardinalityTemp = set()
+            modCount = {}
+            count = 0
+            for rowTemp in dataNoEmpty[nameTemp]:
+                if rowTemp not in cardinalityTemp:
+                    cardinalityTemp.add(rowTemp)
+                    modCount[rowTemp] = 1
+                    count += 1
+                else:
+                    modCount[rowTemp] += 1
+                    count += 1
 
-        median(sortedData, name)
-        quartile1Calculation(sortedData, name)
-        quartile3Calculation(sortedData, name)
-        continuousData[name].average = continuousData[name].average / continuousData[name].amount
-        continuousData[name].cardinality = len(cardinalityTemp)
-        continuousData[name].missing = 100 / len(dataList) * dataEmpty[name]
+
+            sortMod = sorted(modCount.items(), key=itemgetter(1))
+
+            data[nameTemp].cardinality = len(cardinalityTemp)
+            data[nameTemp].mod = sortMod[len(sortMod)-1][0]
+            data[nameTemp].modFrequency = sortMod[len(sortMod)-1][1]
+            data[nameTemp].modPercentage = 100 / count * sortMod[len(sortMod)-1][1]
+            data[nameTemp].mod2 = sortMod[len(sortMod)-2][0]
+            data[nameTemp].modFrequency2 = sortMod[len(sortMod)-2][1]
+            data[nameTemp].modPercentage2 = 100 / count * sortMod[len(sortMod)-2][1]
