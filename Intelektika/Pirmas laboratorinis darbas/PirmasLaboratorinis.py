@@ -17,7 +17,7 @@ class Continuous:
         self.standardDeviation = standardDeviation
 
     def __str__(self):
-        return "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}".format(self.name, self.amount, self.missing, self.cardinality, self.min, self.max, self.quartile1, self.average, self.median, self.standardDeviation)
+        return "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}".format(self.name, self.amount, self.missing, self.cardinality, self.min, self.max, self.quartile1, self.quartile3, self.average, self.median, self.standardDeviation)
 
 class Categorical:
     def __init__(self, name, amount, missing, cardinality, mod, modFrequency, modPercentage, mod2, modFrequency2, modPercentage2):
@@ -33,7 +33,7 @@ class Categorical:
         self.modPercentage2 = modPercentage2
 
     def __str__(self):
-        return "{0},{1},{2},{3},{4},{5},{6},{7},{8}".format(self.name, self.amount, self.missing, self.cardinality, self.mod, self.modFrequency, self.modPercentage, self.modFrequency2, self.modPercentage2)
+        return "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}".format(self.name, self.amount, self.missing, self.cardinality, self.mod, self.modFrequency, self.modPercentage, self.mod2, self.modFrequency2, self.modPercentage2)
 
 def median(datalistTmp, name):
     medianIndex = 0
@@ -99,7 +99,8 @@ def quartile3Calculation(datalistTmp, name):
 
         index += 1
 
-def deviation(datalistTmp, name):
+
+def Deviation(datalistTmp):
     u = 0
     sum = 0
 
@@ -111,8 +112,8 @@ def deviation(datalistTmp, name):
     for tmpRow in datalistTmp:
         sum += pow(tmpRow - u, 2)
 
-    ats = pow((1/len(datalistTmp)) * sum, 0.5)
-
+    answer = pow(sum/len(datalistTmp), 0.5)
+    return answer
 
 
 def ContiniuosCalc(namedata, dataNoEmpty, data):
@@ -136,7 +137,7 @@ def ContiniuosCalc(namedata, dataNoEmpty, data):
             data[nameTemp].min = sortedData[0]
             data[nameTemp].cardinality = len(cardinalityTemp)
             data[nameTemp].missing = 100 / len(dataList) * dataEmpty[nameTemp]
-
+            data[nameTemp].standardDeviation = Deviation(dataNoEmpty[nameTemp])
     return data
 
 
@@ -223,20 +224,29 @@ for name in nameList:
 continuousData = ContiniuosCalc(nameList, dataWithoutEmpty, continuousData)
 categoricalData = CategoricalCalc(nameList, dataWithoutEmpty, categoricalData)
 
-with open("Result.csv", "wb") as csv_file:
-    spamwriter = csv.writer(csv_file, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-    file = open("Result.csv", mode="w")
+with open("Result.csv", "w+", encoding="utf-8-sig", newline='') as csv_file:
+    spamwriter = csv.writer(csv_file, delimiter=',')
+    file = open("Result.csv", mode="a+", encoding="utf-8-sig")
     # print(nameList)
-    datala = ['Atributo pavadiniams', 'Kiekis (Eilučių sk.)', 'Trūkstamos reikšmės, %', 'Kardinalumas', 'Minimali reikšmė', 'Maksimali reikšmė', '1-asis kvartilis', '3-asis kvartilis', 'Vidurkis', 'Mediana', 'Standartinis nuokrypis']
-
+    spamwriter.writerow(csv_file)
+    spamwriter.writerow(
+        ["Atributo pavadiniams", "Kiekis (Eilučių sk.)", "Trūkstamos reikšmės, %", "Kardinalumas", "Minimali reikšmė",
+         "Maksimali reikšmė", "1-asis kvartilis", "3-asis kvartilis", "Vidurkis", "Mediana", "Standartinis nuokrypis"])
     for nameTemp in nameList:
         if nameTemp != "id" and nameTemp != "codec" and nameTemp != "o_codec":
-            print(datala)
-            # spamwriter.writerows(datala)
             file.write(str(continuousData[nameTemp]))
             file.write("\n")
-        elif nameTemp != "id" and (nameTemp == "codec" or nameTemp == "o_codec"):
-            # spamwriter.writerow(["Atributo pavadiniams", "Kiekis (Eilučių sk.)", "Trūkstamos reikšmės, %", "Kardinalumas", "Moda", "Modos dažnumas", "Moda, %", "2-oji Moda", "2-osios Modos dažnumas", "2-oji Moda, %"])
+    file.close()
+    csv_file.close()
+with open("Result.csv", "a+", encoding="utf-8-sig", newline='') as csv_file:
+    spamwriter = csv.writer(csv_file, delimiter=',')
+    spamwriter.writerow(csv_file)
+    spamwriter.writerow(
+        ["Atributo pavadiniams", "Kiekis (Eilučių sk.)", "Trūkstamos reikšmės, %", "Kardinalumas", "Moda",
+         "Modos dažnumas", "Moda, %", "2-oji Moda", "2-osios Modos dažnumas", "2-oji Moda, %"])
+    file = open("Result.csv", mode="a+", encoding="utf-8-sig")
+    for nameTemp in nameList:
+        if nameTemp != "id" and (nameTemp == "codec" or nameTemp == "o_codec"):
             file.write(str(categoricalData[nameTemp]))
             file.write("\n")
 
