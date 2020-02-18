@@ -1,6 +1,5 @@
-import re
 import csv
-from operator import itemgetter, attrgetter
+from operator import itemgetter
 
 
 class Continuous:
@@ -17,6 +16,8 @@ class Continuous:
         self.median = median
         self.standardDeviation = standardDeviation
 
+    def __str__(self):
+        return "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}".format(self.name, self.amount, self.missing, self.cardinality, self.min, self.max, self.quartile1, self.average, self.median, self.standardDeviation)
 
 class Categorical:
     def __init__(self, name, amount, missing, cardinality, mod, modFrequency, modPercentage, mod2, modFrequency2, modPercentage2):
@@ -31,6 +32,8 @@ class Categorical:
         self.modFrequency2 = modFrequency2
         self.modPercentage2 = modPercentage2
 
+    def __str__(self):
+        return "{0},{1},{2},{3},{4},{5},{6},{7},{8}".format(self.name, self.amount, self.missing, self.cardinality, self.mod, self.modFrequency, self.modPercentage, self.modFrequency2, self.modPercentage2)
 
 def median(datalistTmp, name):
     medianIndex = 0
@@ -111,6 +114,62 @@ def deviation(datalistTmp, name):
     ats = pow((1/len(datalistTmp)) * sum, 0.5)
 
 
+
+def ContiniuosCalc(namedata, dataNoEmpty, data):
+    for nameTemp in namedata:
+
+        if nameTemp != "id" and nameTemp != "codec" and nameTemp != "o_codec":
+            cardinalityTemp = set()
+            for row in dataNoEmpty[nameTemp]:
+                if row not in cardinalityTemp:
+                    cardinalityTemp.add(row)
+
+                data[nameTemp].average += float(row)
+
+            sortedData = sorted(dataNoEmpty[nameTemp])
+
+            median(sortedData, nameTemp)
+            quartile1Calculation(sortedData, nameTemp)
+            quartile3Calculation(sortedData, nameTemp)
+            data[nameTemp].average = data[nameTemp].average / data[nameTemp].amount
+            data[nameTemp].max = sortedData[len(sortedData) - 1]
+            data[nameTemp].min = sortedData[0]
+            data[nameTemp].cardinality = len(cardinalityTemp)
+            data[nameTemp].missing = 100 / len(dataList) * dataEmpty[nameTemp]
+
+    return data
+
+
+def CategoricalCalc(namedata, dataNoEmpty, data):
+    for nameTemp in namedata:
+        if nameTemp == "codec" or nameTemp == "o_codec":
+            cardinalityTemp = set()
+            modCount = {}
+            count = 0
+            for rowTemp in dataNoEmpty[nameTemp]:
+                if rowTemp not in cardinalityTemp:
+                    cardinalityTemp.add(rowTemp)
+                    modCount[rowTemp] = 1
+                    count += 1
+                else:
+                    modCount[rowTemp] += 1
+                    count += 1
+
+
+            sortMod = sorted(modCount.items(), key=itemgetter(1))
+
+            data[nameTemp].cardinality = len(cardinalityTemp)
+            data[nameTemp].mod = sortMod[len(sortMod)-1][0]
+            data[nameTemp].modFrequency = sortMod[len(sortMod)-1][1]
+            data[nameTemp].modPercentage = 100 / count * sortMod[len(sortMod)-1][1]
+            data[nameTemp].mod2 = sortMod[len(sortMod)-2][0]
+            data[nameTemp].modFrequency2 = sortMod[len(sortMod)-2][1]
+            data[nameTemp].modPercentage2 = 100 / count * sortMod[len(sortMod)-2][1]
+
+    return data
+
+
+
 index = 0
 dataList = []
 nameList = []
@@ -161,53 +220,23 @@ for name in nameList:
             dataWithoutEmpty[name].append(int(row[name]))
 
 
-for name in nameList:
+continuousData = ContiniuosCalc(nameList, dataWithoutEmpty, continuousData)
+categoricalData = CategoricalCalc(nameList, dataWithoutEmpty, categoricalData)
 
-    if name != "id" and name != "codec" and name != "o_codec":
-        cardinalityTemp = set()
-        for row in dataWithoutEmpty[name]:
-            if row not in cardinalityTemp:
-                cardinalityTemp.add(row)
+with open("Result.csv", "wb") as csv_file:
+    spamwriter = csv.writer(csv_file, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+    file = open("Result.csv", mode="w")
+    # print(nameList)
+    datala = ['Atributo pavadiniams', 'Kiekis (Eilučių sk.)', 'Trūkstamos reikšmės, %', 'Kardinalumas', 'Minimali reikšmė', 'Maksimali reikšmė', '1-asis kvartilis', '3-asis kvartilis', 'Vidurkis', 'Mediana', 'Standartinis nuokrypis']
 
-            continuousData[name].average += float(row)
+    for nameTemp in nameList:
+        if nameTemp != "id" and nameTemp != "codec" and nameTemp != "o_codec":
+            print(datala)
+            # spamwriter.writerows(datala)
+            file.write(str(continuousData[nameTemp]))
+            file.write("\n")
+        elif nameTemp != "id" and (nameTemp == "codec" or nameTemp == "o_codec"):
+            # spamwriter.writerow(["Atributo pavadiniams", "Kiekis (Eilučių sk.)", "Trūkstamos reikšmės, %", "Kardinalumas", "Moda", "Modos dažnumas", "Moda, %", "2-oji Moda", "2-osios Modos dažnumas", "2-oji Moda, %"])
+            file.write(str(categoricalData[nameTemp]))
+            file.write("\n")
 
-        sortedData = sorted(dataWithoutEmpty[name])
-
-        median(sortedData, name)
-        quartile1Calculation(sortedData, name)
-        quartile3Calculation(sortedData, name)
-        continuousData[name].average = continuousData[name].average / continuousData[name].amount
-        continuousData[name].max = sortedData[len(sortedData)-1]
-        continuousData[name].min = sortedData[0]
-        continuousData[name].cardinality = len(cardinalityTemp)
-        continuousData[name].missing = 100 / len(dataList) * dataEmpty[name]
-        # print(continuousData[name].max)
-
-
-
-def Categorical(names, dataNoEmpty, data):
-    for nameTemp in names:
-
-        if nameTemp == "codec" or nameTemp == "o_codec":
-            cardinalityTemp = set()
-            modCount = {}
-            count = 0
-            for rowTemp in dataNoEmpty[nameTemp]:
-                if rowTemp not in cardinalityTemp:
-                    cardinalityTemp.add(rowTemp)
-                    modCount[rowTemp] = 1
-                    count += 1
-                else:
-                    modCount[rowTemp] += 1
-                    count += 1
-
-
-            sortMod = sorted(modCount.items(), key=itemgetter(1))
-
-            data[nameTemp].cardinality = len(cardinalityTemp)
-            data[nameTemp].mod = sortMod[len(sortMod)-1][0]
-            data[nameTemp].modFrequency = sortMod[len(sortMod)-1][1]
-            data[nameTemp].modPercentage = 100 / count * sortMod[len(sortMod)-1][1]
-            data[nameTemp].mod2 = sortMod[len(sortMod)-2][0]
-            data[nameTemp].modFrequency2 = sortMod[len(sortMod)-2][1]
-            data[nameTemp].modPercentage2 = 100 / count * sortMod[len(sortMod)-2][1]
