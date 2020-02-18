@@ -1,5 +1,6 @@
 import re
 import csv
+from operator import itemgetter, attrgetter
 
 
 class Continuous:
@@ -42,7 +43,7 @@ def median(datalistTmp, name):
 
     for tmpRow in datalistTmp:
         if check is True and medianIndex <= index <= medianIndex + 1:
-            continuousData[name].median += float(tmpRow[name])
+            continuousData[name].median += float(tmpRow)
 
         if check is True and index == medianIndex + 2:
             continuousData[name].median = continuousData[name].median / 2
@@ -64,7 +65,7 @@ def quartile1Calculation(datalistTmp, name):
 
     for tmpRow in datalistTmp:
         if check is True and quartile1 <= index <= quartile1 + 1:
-            continuousData[name].quartile1 += float(tmpRow[name])
+            continuousData[name].quartile1 += float(tmpRow)
 
         if check is True and index == quartile1 + 2:
             continuousData[name].quartile1 = continuousData[name].quartile1 / 2
@@ -87,7 +88,7 @@ def quartile3Calculation(datalistTmp, name):
 
     for tmpRow in datalistTmp:
         if check is True and quartile3 <= index <= quartile3 + 1:
-            continuousData[name].quartile3 += float(tmpRow[name])
+            continuousData[name].quartile3 += float(tmpRow)
 
         if check is True and index == quartile3 + 2:
             continuousData[name].quartile3 = continuousData[name].quartile3 / 2
@@ -99,17 +100,18 @@ def deviation(datalistTmp, name):
     sum = 0
 
     for tmpRow in datalistTmp:
-        u += tmpRow[name]
+        u += tmpRow
 
     u = u / len(datalistTmp)
 
     for tmpRow in datalistTmp:
-        sum += pow(tmpRow[name] - u, 2)
+        sum += pow(tmpRow - u, 2)
 
     ats = pow((1/len(datalistTmp)) * sum, 0.5)
 
 
-
+def myFunc(e):
+  return e['year']
 
 
 
@@ -117,42 +119,88 @@ index = 0
 dataList = []
 nameList = []
 continuousData = {}
+categoricalData = {}
+dataEmpty = {}
+dataWithoutEmpty = {}
 with open('transcoding_mesurment.tsv') as tsvfile:
   reader = csv.DictReader(tsvfile, dialect='excel-tab')
   for row in reader:
-    # print(row)
-    dataList.append(row)
+        dataList.append(row)
+
 
 # initialization
 for row in dataList:
     for names in row:
-        continuousData[names] = Continuous(names, len(dataList), 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        if names != "codec" and names != "o_codec" and names != "id":
+            continuousData[names] = Continuous(names, len(dataList), 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        elif names == "codec" and names == "o_codec":
+            categoricalData[names] = Categorical(names, len(dataList), 0, 0, 0, 0, 0, 0, 0, 0)
         nameList.append(names)
     break
 
 for name in nameList:
-    maxVal = 0.0
-    minVal = 0.0
+    dataEmpty[name] = 0
+    dataWithoutEmpty[name] = []
+    for row in dataList:
+        try:
+            f = int(row[name])
+        except ValueError:
+            if name in dataEmpty and name != "id" and name != "codec" and name != "o_codec":
+                try:
+                    f = float(row[name])
+                except:
+                    dataEmpty[name] += 1
+                else:
+                    dataWithoutEmpty[name].append(float(row[name]))
+
+            elif name == "id" or name == "codec" or name == "o_codec" and row[name] == "" and row[name] == "nan" and row[name] == "NaN" and row[name] == "NAN":
+                dataEmpty[name] += 1
+        else:
+            dataWithoutEmpty[name].append(int(row[name]))
+
+
+for name in nameList:
 
     if name != "id" and name != "codec" and name != "o_codec":
         cardinalityTemp = set()
-        for row in dataList:
-            if row[name] not in cardinalityTemp:
-                cardinalityTemp.add(row[name])
+        for row in dataWithoutEmpty[name]:
+            if row not in cardinalityTemp:
+                cardinalityTemp.add(row)
 
-            if maxVal < float(row[name]):
-                maxVal = float(row[name])
+            continuousData[name].average += float(row)
 
-            if minVal > float(row[name]):
-                minVal = float(row[name])
+        sortedData = sorted(dataWithoutEmpty[name])
 
-            continuousData[name].average += float(row[name])
-
-        median(dataList, name)
-        quartile1Calculation(dataList, name)
-        quartile3Calculation(dataList, name)
-
+        median(sortedData, name)
+        quartile1Calculation(sortedData, name)
+        quartile3Calculation(sortedData, name)
         continuousData[name].average = continuousData[name].average / continuousData[name].amount
-        continuousData[name].max = maxVal
-        continuousData[name].min = minVal
+        continuousData[name].max = sortedData[len(sortedData)-1]
+        continuousData[name].min = sortedData[0]
         continuousData[name].cardinality = len(cardinalityTemp)
+        continuousData[name].missing = 100 / len(dataList) * dataEmpty[name]
+        # print(continuousData[name].max)
+
+for name in nameList:
+
+    if name == "codec" and name == "o_codec":
+        cardinalityTemp = set()
+        modCount = []
+        for row in dataWithoutEmpty[name]:
+            if row not in cardinalityTemp:
+                cardinalityTemp.add(row)
+                modCount[name].append({row:0})
+                modCount[name][row] = 0
+            else:
+                modCount[row] += 1
+
+            continuousData[name].average += float(row)
+
+        sortedData = sorted(dataWithoutEmpty[name])
+
+        median(sortedData, name)
+        quartile1Calculation(sortedData, name)
+        quartile3Calculation(sortedData, name)
+        continuousData[name].average = continuousData[name].average / continuousData[name].amount
+        continuousData[name].cardinality = len(cardinalityTemp)
+        continuousData[name].missing = 100 / len(dataList) * dataEmpty[name]
