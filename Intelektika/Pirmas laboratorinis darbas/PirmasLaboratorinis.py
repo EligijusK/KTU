@@ -1,5 +1,6 @@
 import csv
 from operator import itemgetter
+import Drawing as Draw
 
 
 class Continuous:
@@ -38,26 +39,27 @@ class Categorical:
 def median(datalistTmp, name):
     medianIndex = 0
     check = False
-    index = 0
+
     if len(datalistTmp) % 2 == 0:
         medianIndex = int(len(datalistTmp) / 2)
         check = True
     else:
         medianIndex = round(len(datalistTmp) / 2, 0)
 
-    for tmpRow in datalistTmp:
-        if check is True and medianIndex <= index <= medianIndex + 1:
-            continuousData[name].median += float(tmpRow)
+    medianIndex = int(medianIndex)
+    if check is True:
+        continuousData[name].median += datalistTmp[medianIndex - 1]
+        continuousData[name].median += datalistTmp[medianIndex]
+        continuousData[name].median = continuousData[name].median / 2
+    elif check is False:
+        continuousData[name].median += float(datalistTmp[medianIndex - 1])
 
-        if check is True and index == medianIndex + 2:
-            continuousData[name].median = continuousData[name].median / 2
-        index += 1
 
 
 def quartile1Calculation(datalistTmp, name):
     quartile1 = 0
     medianIndex = 0
-    index = 0
+
     check = False
     if len(datalistTmp) % 2 == 0:
         check = True
@@ -67,20 +69,19 @@ def quartile1Calculation(datalistTmp, name):
         medianIndex = round(len(datalistTmp) / 2, 0)
         quartile1 = round(medianIndex / 2, 0)
 
-    for tmpRow in datalistTmp:
-        if check is True and quartile1 <= index <= quartile1 + 1:
-            continuousData[name].quartile1 += float(tmpRow)
-
-        if check is True and index == quartile1 + 2:
-            continuousData[name].quartile1 = continuousData[name].quartile1 / 2
-
-        index += 1
+    quartile1 = int(quartile1)
+    if check is True:
+        continuousData[name].quartile1 += datalistTmp[quartile1]
+        continuousData[name].quartile1 += datalistTmp[quartile1-1]
+        continuousData[name].quartile1 = continuousData[name].quartile1 / 2
+    elif check is False:
+        continuousData[name].quartile1 += datalistTmp[quartile1 - 1]
 
 
 def quartile3Calculation(datalistTmp, name):
     quartile1 = 0
     medianIndex = 0
-    index = 0
+
     check = False
     if len(datalistTmp) % 2 == 0:
         check = True
@@ -90,14 +91,13 @@ def quartile3Calculation(datalistTmp, name):
         medianIndex = round(len(datalistTmp) / 2, 0)
         quartile3 = medianIndex + int(medianIndex / 2)
 
-    for tmpRow in datalistTmp:
-        if check is True and quartile3 <= index <= quartile3 + 1:
-            continuousData[name].quartile3 += float(tmpRow)
-
-        if check is True and index == quartile3 + 2:
-            continuousData[name].quartile3 = continuousData[name].quartile3 / 2
-
-        index += 1
+    quartile3 = int(quartile3)
+    if check is True:
+        continuousData[name].quartile3 += datalistTmp[quartile3]
+        continuousData[name].quartile3 += datalistTmp[quartile3 - 1]
+        continuousData[name].quartile3 = continuousData[name].quartile3 / 2
+    elif check is False:
+        continuousData[name].quartile3 += datalistTmp[quartile3 - 1]
 
 
 def Deviation(datalistTmp):
@@ -224,6 +224,9 @@ for name in nameList:
 continuousData = ContiniuosCalc(nameList, dataWithoutEmpty, continuousData)
 categoricalData = CategoricalCalc(nameList, dataWithoutEmpty, categoricalData)
 
+Draw.Drow(dataWithoutEmpty['o_framerate'])
+Draw.Drow(dataWithoutEmpty['utime'])
+
 with open("Result.csv", "w+", encoding="utf-8-sig", newline='') as csv_file:
     spamwriter = csv.writer(csv_file, delimiter=',')
     file = open("Result.csv", mode="a+", encoding="utf-8-sig")
@@ -238,6 +241,8 @@ with open("Result.csv", "w+", encoding="utf-8-sig", newline='') as csv_file:
             file.write("\n")
     file.close()
     csv_file.close()
+
+
 with open("Result.csv", "a+", encoding="utf-8-sig", newline='') as csv_file:
     spamwriter = csv.writer(csv_file, delimiter=',')
     spamwriter.writerow(csv_file)
@@ -249,4 +254,3 @@ with open("Result.csv", "a+", encoding="utf-8-sig", newline='') as csv_file:
         if nameTemp != "id" and (nameTemp == "codec" or nameTemp == "o_codec"):
             file.write(str(categoricalData[nameTemp]))
             file.write("\n")
-
