@@ -17,6 +17,9 @@ class Continuous:
         self.median = median
         self.standardDeviation = standardDeviation
 
+    def asList(self):
+        return [self.name, self.amount, self.missing, self.cardinality, self.min, self.max, self.quartile1, self.quartile3, self.average, self.median, self.standardDeviation]
+
     def __str__(self):
         return "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}".format(self.name, self.amount, self.missing, self.cardinality, self.min, self.max, self.quartile1, self.quartile3, self.average, self.median, self.standardDeviation)
 
@@ -32,6 +35,9 @@ class Categorical:
         self.mod2 = mod2
         self.modFrequency2 = modFrequency2
         self.modPercentage2 = modPercentage2
+
+    def asList(self):
+        return [self.name, self.amount, self.missing, self.cardinality, self.mod, self.modFrequency, self.modPercentage, self.mod2, self.modFrequency2, self.modPercentage2]
 
     def __str__(self):
         return "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}".format(self.name, self.amount, self.missing, self.cardinality, self.mod, self.modFrequency, self.modPercentage, self.mod2, self.modFrequency2, self.modPercentage2)
@@ -178,6 +184,7 @@ continuousData = {}
 categoricalData = {}
 dataEmpty = {}
 dataWithoutEmpty = {}
+dataWithEmpty = {}
 with open('transcoding_mesurment.tsv') as tsvfile:
   reader = csv.DictReader(tsvfile, dialect='excel-tab')
   for row in reader:
@@ -197,6 +204,7 @@ for row in dataList:
 for name in nameList:
     dataEmpty[name] = 0
     dataWithoutEmpty[name] = []
+    dataWithEmpty[name] = []
     for row in dataList:
         try:
             f = int(row[name])
@@ -208,38 +216,40 @@ for name in nameList:
                     f = float(row[name])
                 except:
                     dataEmpty[name] += 1
+                    dataWithEmpty[name].append(None)
                 else:
                     dataWithoutEmpty[name].append(float(row[name]))
+                    dataWithEmpty[name].append(float(row[name]))
 
             elif (name == "id" or name == "codec" or name == "o_codec") and row[name] == "" and row[name] == "nan" and row[name] == "NaN" and row[name] == "NAN":
                 dataEmpty[name] += 1
+                dataWithEmpty[name].append(None)
             elif name == "id" or name == "codec" or name == "o_codec":
                 dataWithoutEmpty[name].append(row[name])
+                dataWithEmpty[name].append(row[name])
 
 
         else:
             dataWithoutEmpty[name].append(int(row[name]))
+            dataWithEmpty[name].append(int(row[name]))
 
 
 continuousData = ContiniuosCalc(nameList, dataWithoutEmpty, continuousData)
 categoricalData = CategoricalCalc(nameList, dataWithoutEmpty, categoricalData)
 
-Draw.Drow(dataWithoutEmpty['o_framerate'])
-Draw.Drow(dataWithoutEmpty['utime'])
-
+# Draw.DrowHist(dataWithoutEmpty['o_framerate'])
+# Draw.DrowHist(dataWithoutEmpty['utime'])
+# Draw.DrowScatter(dataWithEmpty['codec'], dataWithEmpty['utime']) # padaryti width height kaip kategorini
+Draw.DrowBarPlot(dataWithoutEmpty['utime'])
 with open("Result.csv", "w+", encoding="utf-8-sig", newline='') as csv_file:
     spamwriter = csv.writer(csv_file, delimiter=',')
-    file = open("Result.csv", mode="a+", encoding="utf-8-sig")
-    # print(nameList)
     spamwriter.writerow(csv_file)
     spamwriter.writerow(
         ["Atributo pavadiniams", "Kiekis (Eilučių sk.)", "Trūkstamos reikšmės, %", "Kardinalumas", "Minimali reikšmė",
          "Maksimali reikšmė", "1-asis kvartilis", "3-asis kvartilis", "Vidurkis", "Mediana", "Standartinis nuokrypis"])
     for nameTemp in nameList:
         if nameTemp != "id" and nameTemp != "codec" and nameTemp != "o_codec":
-            file.write(str(continuousData[nameTemp]))
-            file.write("\n")
-    file.close()
+            spamwriter.writerow(continuousData[nameTemp].asList())
     csv_file.close()
 
 
@@ -249,8 +259,7 @@ with open("Result.csv", "a+", encoding="utf-8-sig", newline='') as csv_file:
     spamwriter.writerow(
         ["Atributo pavadiniams", "Kiekis (Eilučių sk.)", "Trūkstamos reikšmės, %", "Kardinalumas", "Moda",
          "Modos dažnumas", "Moda, %", "2-oji Moda", "2-osios Modos dažnumas", "2-oji Moda, %"])
-    file = open("Result.csv", mode="a+", encoding="utf-8-sig")
     for nameTemp in nameList:
         if nameTemp != "id" and (nameTemp == "codec" or nameTemp == "o_codec"):
-            file.write(str(categoricalData[nameTemp]))
-            file.write("\n")
+            spamwriter.writerow(categoricalData[nameTemp].asList())
+    csv_file.close()
