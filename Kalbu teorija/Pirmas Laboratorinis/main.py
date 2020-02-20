@@ -5,12 +5,16 @@ class TelephoneInfo:
         self.code = code
         self.name = name
         self.price = price
+        # apsirasyti equals
+        # apsirasyti str
 
 
 class TelephoneCalls:
     def __init__(self, number, time):
         self.number = number
         self.time = time
+        # apsirasyti equals
+        # apsirasyti str
 
 
 class Data (TelephoneInfo, TelephoneCalls):
@@ -20,7 +24,13 @@ class Data (TelephoneInfo, TelephoneCalls):
         self.name = name
         self.price = price
         self.time = time
+        # apsirasyti str pagal code kai == -1 arba nelygu
 
+    def priceSeconds(self):
+        return self.price * 0.1
+
+    def calcuPrice(self):
+        return self.price * 0.1 * self.time
 
 
 
@@ -76,6 +86,7 @@ def splitLine(dataFromFile):
             listForCalls.append(calls)
     return listForInfo, listForCalls
 
+
 def calculatePrice(listOfCall, listOfInfo):
     calculatedData = []
     for calls in listOfCall:
@@ -96,6 +107,7 @@ def calculatePrice(listOfCall, listOfInfo):
             data = Data(calls.number, -1, "Unknown", -1, calls.time)
             calculatedData.append(data)
     return calculatedData
+
 
 def saveData(calculatedData):
     fSave = open("data.txt", "w+")
