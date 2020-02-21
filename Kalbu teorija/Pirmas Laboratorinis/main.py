@@ -8,6 +8,8 @@ class TelephoneInfo:
         # apsirasyti equals
         # apsirasyti str
 
+    def priceSeconds(self):
+        return round(self.price * 0.1, 2)
 
 class TelephoneCalls:
     def __init__(self, number, time):
@@ -26,11 +28,14 @@ class Data (TelephoneInfo, TelephoneCalls):
         self.time = time
         # apsirasyti str pagal code kai == -1 arba nelygu
 
-    def priceSeconds(self):
-        return self.price * 0.1
-
     def calcuPrice(self):
-        return self.price * 0.1 * self.time
+        return float(self.price) * 0.1 * float(self.time)
+
+    def __str__(self):
+        if self.code != -1:
+            return "{0:15} {1:16} {2:8} {3:6} {4:6} {5:.2f}\n".format(self.number, self.name, self.code, self.time, str(self.priceSeconds()), self.calcuPrice())
+        else:
+            return "{0:15} {1:16} {2:8} {3:6} {4:6} {5:.2f}\n".format(self.number, self.name, "", self.time, "", float(self.price))
 
 
 
@@ -113,10 +118,7 @@ def saveData(calculatedData):
     fSave = open("data.txt", "w+")
     # fSave.write("{0:14} {1:16} {2:8} {3:6} {4:6} {5:6}\n".format("1", "17", "51", "56", "62", "69"))
     for data in calculatedData:
-        if data.code != -1:
-            fSave.write("{0:15} {1:16} {2:8} {3:6} {4:6} {5:.2f}\n".format(data.number, data.name, data.code, data.time, str(round(float(data.price) * 0.1, 2)), float(data.price) * 0.1 * float(data.time)))
-        else:
-            fSave.write("{0:15} {1:16} {2:8} {3:6} {4:6} {5:.2f}\n".format(data.number, data.name, "", data.time, "", float(data.price)))
+        fSave.write(str(data))
     fSave.close()
 
 
