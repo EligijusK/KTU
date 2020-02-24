@@ -3,8 +3,8 @@
 class ControlFunction {
     var n = 0
     def respond(input: String) = {
-        val output = "Status(text=" + n + ")"   // temp value
-        n += 1                                  // now increments after use
+        val output = "Status(text=" + n + ")" + 10   // temp value
+        n += 1
         output                                  // yield
     }
 }

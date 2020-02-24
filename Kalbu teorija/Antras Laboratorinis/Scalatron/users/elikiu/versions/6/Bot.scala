@@ -4,7 +4,7 @@ class ControlFunction {
     var n = 0
     def respond(input: String) = {
         val output = "Status(text=" + n + ")"   // temp value
-        n += 1                                  // now increments after use
+        n += 1
         output                                  // yield
     }
 }
