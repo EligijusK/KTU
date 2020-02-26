@@ -237,10 +237,29 @@ for name in nameList:
 continuousData = ContiniuosCalc(nameList, dataWithoutEmpty, continuousData)
 categoricalData = CategoricalCalc(nameList, dataWithoutEmpty, categoricalData)
 
+nameCodec = []
+countCodec = {}
+for a in dataWithEmpty['codec']:
+    if a not in nameCodec:
+        nameCodec.append(a)
+        countCodec[a] = 1
+        # countCodec[a] += 1
+    else:
+        countCodec[a] += 1
+
+# print(countCodec["vp8"])
+
+listas = []
+for val in countCodec.values():
+    listas.append(val)
+
 # Draw.DrowHist(dataWithoutEmpty['o_framerate'])
 # Draw.DrowHist(dataWithoutEmpty['utime'])
-# Draw.DrowScatter(dataWithEmpty['codec'], dataWithEmpty['utime']) # padaryti width height kaip kategorini
-Draw.DrowBarPlot(dataWithoutEmpty['utime'])
+# Draw.DrowScatter(dataWithEmpty['height'], dataWithEmpty['o_codec'])   # padaryti width height kaip kategorini
+# Draw.DrowBarPlot(nameCodec, listas)
+# Draw.TST()
+# Draw.BoxPlot()
+Draw.Heat()
 with open("Result.csv", "w+", encoding="utf-8-sig", newline='') as csv_file:
     spamwriter = csv.writer(csv_file, delimiter=',')
     spamwriter.writerow(csv_file)
