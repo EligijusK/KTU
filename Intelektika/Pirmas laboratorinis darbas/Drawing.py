@@ -8,7 +8,8 @@ import seaborn as sb
 
 def DrowHist(dataList):
     fig, (ax1,ax2) = plot.subplots(nrows = 2, ncols = 1)
-    sb.distplot(dataList, kde=True, ax = ax1, bins=20)
+    # sb.distplot(dataList, kde=True, ax = ax1, bins=20)
+    ax1.hist(dataList)
     ax1.set_xlabel("utime")
     ax1.set_ylabel("frequency")
     ax1.set_title("kazkas")
@@ -16,28 +17,31 @@ def DrowHist(dataList):
 
 
 def DrowScatter(dataList, datalist2):
-    fig, (ax1,ax2) = plot.subplots(nrows = 100, ncols = 100)
+    fig, (ax1,ax2) = plot.subplots(nrows = 2, ncols = 1)
     ax1.scatter(dataList, datalist2)
     ax1.set_xlabel("utime")
     ax1.set_ylabel("frequency")
     ax1.set_title("kazkas")
     plot.show()
 
+
 def DrowBarPlot(dataName, dataList):
-    y_pos = np.arange(len(dataName))
-    print(y_pos)
+
+    # y_pos = np.arange(len(dataName))
+    # print(dataName)
+    # print(dataList)
     # fig, (ax1, ax2) = plot.subplots(nrows=2, ncols=1)
-    plot.bar(y_pos, dataList)
+    plot.bar(dataName, dataList)
     # plot.xticks(y_pos, dataName)
     # plot.set_xlabel("utime")
     # plot.set_ylabel("frequency")
     # plot.set_title("kazkas")
     plot.show()
 
-def TST():
+def DrawScatterMatrix(list1, list2, list3, list4, list5):
 
-
-    df = pd.DataFrame(np.random.rand(1000, 4), columns=['a', 'b', 'c', 'd'])
+    d = {'list1':list1, 'list2':list2, 'list3':list3, 'list4':list4, 'list5':list5}
+    df = pd.DataFrame(data=d)
     # print(np.random.rand(50, 4))
     # df.plot.scatter(x='a', y='b')
     # ax = df.plot.scatter(x='a', y='b', color='Black', label='Group 1')

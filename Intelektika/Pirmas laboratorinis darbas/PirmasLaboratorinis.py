@@ -238,26 +238,66 @@ continuousData = ContiniuosCalc(nameList, dataWithoutEmpty, continuousData)
 categoricalData = CategoricalCalc(nameList, dataWithoutEmpty, categoricalData)
 
 nameCodec = []
+nameCodecSecond = []
+countSecondCodec = {}
 countCodec = {}
-for a in dataWithEmpty['codec']:
-    if a not in nameCodec:
-        nameCodec.append(a)
-        countCodec[a] = 1
+secondlist = {}
+
+
+for a in dataWithEmpty['o_codec']: # tinka duration, resuliucija, bitrate
+    if a not in nameCodecSecond:
+        nameCodecSecond.append(a)
+        countSecondCodec[a] = 1
+        # secondlist[a] = dataWithoutEmpty['utime'][index]
+        # index += 1
+
         # countCodec[a] += 1
     else:
-        countCodec[a] += 1
+        countSecondCodec[a] += 1
+        # secondlist[a] += dataWithoutEmpty['utime'][index]
+        # index += 1
+
+
+# index = 0
+# for a in dataWithEmpty['codec']: # tinka duration, resuliucija, bitrate
+#     if a not in nameCodec:
+#         nameCodec.append(a)
+#         countCodec[a] = 1
+#         secondlist[a] = dataWithoutEmpty['utime'][index]
+#         index += 1
+#
+#         # countCodec[a] += 1
+#     else:
+#         countCodec[a] += 1
+#         secondlist[a] += dataWithoutEmpty['utime'][index]
+#         index += 1
 
 # print(countCodec["vp8"])
 
 listas = []
+listasAntroCodec = []
+atnrasListas = []
 for val in countCodec.values():
     listas.append(val)
 
-# Draw.DrowHist(dataWithoutEmpty['o_framerate'])
+for value in secondlist.values():
+    atnrasListas.append(value)
+
+for valu in countSecondCodec:
+    listasAntroCodec.append(valu)
+
+# Draw.DrowHist(dataWithoutEmpty['codec'])
+# Draw.DrowHist(dataWithoutEmpty['o_codec'])
+# Draw.DrowHist(dataWithoutEmpty['umem'])
 # Draw.DrowHist(dataWithoutEmpty['utime'])
-# Draw.DrowScatter(dataWithEmpty['height'], dataWithEmpty['o_codec'])   # padaryti width height kaip kategorini
+# histogramos done
+
+
+# Draw.DrowScatter(dataWithEmpty['i'], dataWithEmpty['o_bitrate'])   # padaryti width height kaip kategorini
+# Draw.DrawScatterMatrix(dataWithoutEmpty['utime'], dataWithoutEmpty['umem'], dataWithoutEmpty['p_size'], dataWithoutEmpty['i'], dataWithoutEmpty['framerate']) # duration paskutinis buvo bit rategali buti   framerate su p
 # Draw.DrowBarPlot(nameCodec, listas)
-# Draw.TST()
+# Draw.DrowBarPlot(nameCodec, atnrasListas)
+Draw.DrowBarPlot(nameCodecSecond, listasAntroCodec)
 # Draw.BoxPlot()
 Draw.Heat()
 with open("Result.csv", "w+", encoding="utf-8-sig", newline='') as csv_file:
