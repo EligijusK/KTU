@@ -7,21 +7,21 @@ import seaborn as sb
 
 
 def DrowHist(dataList):
-    fig, (ax1,ax2) = plot.subplots(nrows = 2, ncols = 1)
+    ax1 = plot.subplots(nrows = 1, ncols = 1)
     # sb.distplot(dataList, kde=True, ax = ax1, bins=20)
-    ax1.hist(dataList)
-    ax1.set_xlabel("utime")
-    ax1.set_ylabel("frequency")
-    ax1.set_title("kazkas")
+    plot.hist(dataList)
+    # plot.set_xlabel("utime")
+    # plot.set_ylabel("frequency")
+    # plot.set_title("kazkas")
     plot.show()
 
 
 def DrowScatter(dataList, datalist2):
-    fig, (ax1,ax2) = plot.subplots(nrows = 2, ncols = 1)
-    ax1.scatter(dataList, datalist2)
-    ax1.set_xlabel("utime")
-    ax1.set_ylabel("frequency")
-    ax1.set_title("kazkas")
+    ax1 = plot.subplots(nrows = 1, ncols = 1)
+    plot.scatter(dataList, datalist2)
+    # plot.set_xlabel("utime")
+    # plot.set_ylabel("frequency")
+    # plot.set_title("kazkas")
     plot.show()
 
 
@@ -50,12 +50,23 @@ def DrawScatterMatrix(list1, list2, list3, list4, list5):
     plot.show()
 
 
-def BoxPlot():
-    df = pd.DataFrame(np.random.rand(10, 3), columns=['Col1', 'Col2', 'Col3'])
-    df['X'] = pd.Series(['A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'B', 'B'])
-    df['Y'] = pd.Series(['A', 'B', 'B', 'A', 'B', 'B', 'B', 'A', 'A', 'B'])
+def BoxPlot(data):
+    fig, (ax1, ax2) = plot.subplots(nrows=1, ncols=2)
+    # da = np.random.rand(10, 1)
+    listas = []
+    for a in data:
+        lis = []
+        lis.append(a)
+        listas.append(lis)
+
+    # data={"pav":da}
+    ax1.boxplot(listas)
+    # df = pd.DataFrame(np.random.rand(10, 1))
+    # df['X'] = pd.Series(['A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'B', 'B'])
+    # df['X'] = pd.Series(['A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'B', 'B'])
+    # df['Y'] = pd.Series(['A', 'B', 'B', 'A', 'B', 'B', 'B', 'A', 'A', 'B'])
     plot.figure()
-    bp = df.boxplot(column=['Col1', 'Col2'], by=['X', 'Y'])
+    # bp = df.boxplot(column=['Col1', 'Col2'], by=['X', 'Y'])
     plot.show()
 
 

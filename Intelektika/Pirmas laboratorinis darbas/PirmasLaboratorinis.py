@@ -185,7 +185,7 @@ categoricalData = {}
 dataEmpty = {}
 dataWithoutEmpty = {}
 dataWithEmpty = {}
-with open('transcoding_mesurment.tsv') as tsvfile:
+with open('transcoding_mesurment TST.tsv') as tsvfile:
   reader = csv.DictReader(tsvfile, dialect='excel-tab')
   for row in reader:
         dataList.append(row)
@@ -237,54 +237,55 @@ for name in nameList:
 continuousData = ContiniuosCalc(nameList, dataWithoutEmpty, continuousData)
 categoricalData = CategoricalCalc(nameList, dataWithoutEmpty, categoricalData)
 
-nameCodec = []
-nameCodecSecond = []
-countSecondCodec = {}
-countCodec = {}
-secondlist = {}
+
+def SimpleConditionalFilter(name):
+    nameList = []
+    coundList = {}
+    filteredList = []
+    for a in dataWithEmpty[name]:  # tinka duration, resuliucija, bitrate
+        if a not in nameList:
+            nameList.append(a)
+            coundList[a] = 1
+            # secondlist[a] = dataWithoutEmpty['utime'][index]
+            # index += 1
+
+            # countCodec[a] += 1
+        else:
+            coundList[a] += 1
+            # secondlist[a] += dataWithoutEmpty['utime'][index]
+            # index += 1
+
+    for value in filteredList.values():
+        filteredList.append(value)
+
+    return nameList, filteredList
 
 
-for a in dataWithEmpty['o_codec']: # tinka duration, resuliucija, bitrate
-    if a not in nameCodecSecond:
-        nameCodecSecond.append(a)
-        countSecondCodec[a] = 1
-        # secondlist[a] = dataWithoutEmpty['utime'][index]
-        # index += 1
+def ByToConditionalFilter(nameFirst, nameSecond, filterBy):
+    index = 0
+    nameList = []
+    coundList = {}
+    secondCountList = {}
+    filteredList = []
+    for a in dataWithEmpty[nameFirst]:  # tinka duration, resuliucija, bitrate
 
-        # countCodec[a] += 1
-    else:
-        countSecondCodec[a] += 1
-        # secondlist[a] += dataWithoutEmpty['utime'][index]
-        # index += 1
+        if a not in nameList and filterBy == dataWithoutEmpty[nameSecond][index]:
+            nameList.append(a)
+            coundList[a] = 1
+            secondCountList[a] = 1
+        elif filterBy == dataWithoutEmpty[nameSecond][index]:
+            coundList[a] += 1
+            secondCountList[a] += 1
+        index += 1
+
+    for value in secondCountList.values():
+        filteredList.append(value)
+    return nameList, filteredList
 
 
-# index = 0
-# for a in dataWithEmpty['codec']: # tinka duration, resuliucija, bitrate
-#     if a not in nameCodec:
-#         nameCodec.append(a)
-#         countCodec[a] = 1
-#         secondlist[a] = dataWithoutEmpty['utime'][index]
-#         index += 1
-#
-#         # countCodec[a] += 1
-#     else:
-#         countCodec[a] += 1
-#         secondlist[a] += dataWithoutEmpty['utime'][index]
-#         index += 1
+nameReturned, listas = ByToConditionalFilter('codec', 'o_codec', 'mpeg4')
 
-# print(countCodec["vp8"])
-
-listas = []
-listasAntroCodec = []
-atnrasListas = []
-for val in countCodec.values():
-    listas.append(val)
-
-for value in secondlist.values():
-    atnrasListas.append(value)
-
-for valu in countSecondCodec:
-    listasAntroCodec.append(valu)
+print(listas)
 
 # Draw.DrowHist(dataWithoutEmpty['codec'])
 # Draw.DrowHist(dataWithoutEmpty['o_codec'])
@@ -297,9 +298,9 @@ for valu in countSecondCodec:
 # Draw.DrawScatterMatrix(dataWithoutEmpty['utime'], dataWithoutEmpty['umem'], dataWithoutEmpty['p_size'], dataWithoutEmpty['i'], dataWithoutEmpty['framerate']) # duration paskutinis buvo bit rategali buti   framerate su p
 # Draw.DrowBarPlot(nameCodec, listas)
 # Draw.DrowBarPlot(nameCodec, atnrasListas)
-Draw.DrowBarPlot(nameCodecSecond, listasAntroCodec)
-# Draw.BoxPlot()
-Draw.Heat()
+# Draw.DrowBarPlot(nameReturned, listas)
+Draw.BoxPlot(listas)
+# Draw.Heat()
 with open("Result.csv", "w+", encoding="utf-8-sig", newline='') as csv_file:
     spamwriter = csv.writer(csv_file, delimiter=',')
     spamwriter.writerow(csv_file)
