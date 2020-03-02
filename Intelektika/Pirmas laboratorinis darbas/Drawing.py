@@ -53,14 +53,8 @@ def DrawScatterMatrix(list1, list2, list3, list4, list5):
 def BoxPlot(data):
     fig, (ax1, ax2) = plot.subplots(nrows=1, ncols=2)
     # da = np.random.rand(10, 1)
-    listas = []
-    for a in data:
-        lis = []
-        lis.append(a)
-        listas.append(lis)
-
     # data={"pav":da}
-    ax1.boxplot(listas)
+    ax1.boxplot(data)
     # df = pd.DataFrame(np.random.rand(10, 1))
     # df['X'] = pd.Series(['A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'B', 'B'])
     # df['X'] = pd.Series(['A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'B', 'B'])
@@ -70,14 +64,15 @@ def BoxPlot(data):
     plot.show()
 
 
-def Heat():
+def Heat(nameList, Data):
 
-    Data = {'A': [45, 37, 42, 35, 39],
-            'B': [38, 31, 26, 28, 33],
-            'C': [10, 15, 17, 21, 12]
-            }
+    # Data = {'A': [45, 37, 42, 35, 39],
+    #         'B': [38, 31, 26, 28, 33],
+    #         'C': [10, 15, 17, 21, 12]
+    #         }
 
-    df = DataFrame(Data, columns=['A', 'B', 'C'])
+    # print(Data)
+    df = DataFrame(Data, columns=nameList)
     corrMatrix = df.corr()
     sb.heatmap(corrMatrix, annot=True)
     plot.show()

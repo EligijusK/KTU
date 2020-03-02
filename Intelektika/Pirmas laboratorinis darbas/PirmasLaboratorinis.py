@@ -42,6 +42,45 @@ class Categorical:
     def __str__(self):
         return "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}".format(self.name, self.amount, self.missing, self.cardinality, self.mod, self.modFrequency, self.modPercentage, self.mod2, self.modFrequency2, self.modPercentage2)
 
+def filetrCheck(value, name):
+    if name == "duration" and value >= 31.08 and value <= 25844.086:
+        return True
+    elif name == "width" and value >= 176 and value <= 1920:
+        return True
+    elif name == "height" and value >= 144 and value <= 1080:
+        return True
+    elif name == "bitrate" and value >= 8384 and value <= 7628466:
+        return True
+    elif name == "framerate" and value >= 5.7057524 and value <= 48:
+        return True
+    elif name == "i" and value >= 7 and value <= 5170:
+        return True
+    elif name == "p" and value >= 175 and value <= 304959:
+        return True
+    elif name == "frames" and value >= 192 and value <= 310129:
+        return True
+    elif name == "i_size" and value >= 11648 and value <= 90828552:
+        return True
+    elif name == "p_size" and value >= 33845 and value <= 768996980:
+        return True
+    elif name == "size" and value >= 191879 and value <= 806711069:
+        return True
+    elif name == "o_bitrate" and value >= 56000 and value <= 5000000:
+        return True
+    elif name == "o_framerate" and value >= 12 and value <= 29.97:
+        return True
+    elif name == "o_width" and value >= 176 and value <= 1920:
+        return True
+    elif name == "o_height" and value >= 144 and value <= 1080:
+        return True
+    elif name == "umem" and value >= 22508 and value <= 711824:
+        return True
+    elif name == "utime" and value >= 0.184 and value <= 224.574:
+        return True
+    else:
+        return False
+
+
 def median(datalistTmp, name):
     medianIndex = 0
     check = False
@@ -53,14 +92,13 @@ def median(datalistTmp, name):
         medianIndex = round(len(datalistTmp) / 2, 0)
 
     medianIndex = int(medianIndex)
+    # print(medianIndex)
     if check is True:
         continuousData[name].median += datalistTmp[medianIndex - 1]
         continuousData[name].median += datalistTmp[medianIndex]
         continuousData[name].median = continuousData[name].median / 2
     elif check is False:
         continuousData[name].median += float(datalistTmp[medianIndex - 1])
-
-
 
 def quartile1Calculation(datalistTmp, name):
     quartile1 = 0
@@ -134,7 +172,6 @@ def ContiniuosCalc(namedata, dataNoEmpty, data):
                 data[nameTemp].average += float(row)
 
             sortedData = sorted(dataNoEmpty[nameTemp])
-
             median(sortedData, nameTemp)
             quartile1Calculation(sortedData, nameTemp)
             quartile3Calculation(sortedData, nameTemp)
@@ -175,7 +212,28 @@ def CategoricalCalc(namedata, dataNoEmpty, data):
 
     return data
 
+def average(list):
+    avg = 0
+    index = 0
+    for data in list:
+        avg += data
+        index += 1
+    avg = avg / index
+    return avg
 
+def normalizationFunction(list):
+    dictionary = {}
+    for name in list.keys():
+        if name != "id" and name != "codec" and name != "o_codec":
+            minValue = min(list[name])
+            maxValue = max(list[name])
+            dictionary[name] = []
+            for a in list[name]:
+                # dictionary[name].append(((float(a) - avg) / devi))
+                dictionary[name].append(((float(a) - minValue) / (maxValue - minValue))*(1-(-2)+(-2)))
+        else:
+            dictionary[name] = list[name]
+    return  dictionary
 
 index = 0
 dataList = []
@@ -185,7 +243,7 @@ categoricalData = {}
 dataEmpty = {}
 dataWithoutEmpty = {}
 dataWithEmpty = {}
-with open('transcoding_mesurment TST.tsv') as tsvfile:
+with open('transcoding_mesurment trukumas duomenu.tsv') as tsvfile:
   reader = csv.DictReader(tsvfile, dialect='excel-tab')
   for row in reader:
         dataList.append(row)
@@ -200,6 +258,10 @@ for row in dataList:
             categoricalData[names] = Categorical(names, len(dataList), 0, 0, 0, 0, 0, 0, 0, 0)
         nameList.append(names)
     break
+
+# OneHalf = 1.5 * (quartile3CalculationReturn(dataList, "utime") - quartile1CalculationReturn(dataList, "utime"))
+# print(quartile1CalculationReturn(dataList, "utime"))
+
 
 for name in nameList:
     dataEmpty[name] = 0
@@ -218,12 +280,17 @@ for name in nameList:
                     dataEmpty[name] += 1
                     dataWithEmpty[name].append(None)
                 else:
-                    dataWithoutEmpty[name].append(float(row[name]))
-                    dataWithEmpty[name].append(float(row[name]))
+                    if filetrCheck(float(row[name]), name):
+                        dataWithoutEmpty[name].append(float(row[name]))
+                        dataWithEmpty[name].append(float(row[name]))
+                    else:
+                        dataEmpty[name] += 1
+                        dataWithEmpty[name].append(None)
 
             elif (name == "id" or name == "codec" or name == "o_codec") and row[name] == "" and row[name] == "nan" and row[name] == "NaN" and row[name] == "NAN":
                 dataEmpty[name] += 1
                 dataWithEmpty[name].append(None)
+
             elif name == "id" or name == "codec" or name == "o_codec":
                 dataWithoutEmpty[name].append(row[name])
                 dataWithEmpty[name].append(row[name])
@@ -282,30 +349,128 @@ def ByToConditionalFilter(nameFirst, nameSecond, filterBy):
         filteredList.append(value)
     return nameList, filteredList
 
+def ConditionalAndContiniousBox(nameFirst, nameSecond):
+    index = 0
+    nameList = []
+    coundList = {}
+    secondCountList = {}
+    filteredList = []
+    for a in dataWithEmpty[nameFirst]:  # tinka duration, resuliucija, bitrate
+        if a not in nameList:
+            nameList.append(a)
+            coundList[a] = 1
+            secondCountList[a] = []
+            if dataWithEmpty[nameSecond][index] != None:
+                secondCountList[a].append(dataWithEmpty[nameSecond][index])
+            else:
+                secondCountList[a].append(0)
+        else:
+            coundList[a] += 1
+            if dataWithEmpty[nameSecond][index] != None:
+                secondCountList[a].append(dataWithEmpty[nameSecond][index])
+            else:
+                secondCountList[a].append(0)
+        index += 1
 
-nameReturned, listas = ByToConditionalFilter('codec', 'o_codec', 'mpeg4')
+    for value in secondCountList.values():
+        filteredList.append(value)
+    return nameList, filteredList
 
-print(listas)
+def ConditionalAndContiniousHist(nameFirst, nameSecond):
+    index = 0
+    nameList = []
+    coundList = {}
+    secondCountList = {}
+    filteredList = []
+    for a in dataWithEmpty[nameFirst]:  # tinka duration, resuliucija, bitrate
+        if a not in nameList:
+            nameList.append(a)
+            coundList[a] = 1
+            secondCountList[a] = dataWithoutEmpty[nameSecond][index]
+        else:
+            coundList[a] += 1
+            secondCountList[a] += dataWithoutEmpty[nameSecond][index]
+        index += 1
+
+    for value in secondCountList.values():
+        filteredList.append(value)
+    return nameList, filteredList
+
+def ByToConditionalFilterForHeat(nameFirst, nameSecond):
+    index = 0
+    nameList = []
+    coundList = {}
+    secondCountList = {}
+    filteredList = []
+    for a in dataWithEmpty[nameFirst]:  # tinka duration, resuliucija, bitrate
+
+        if a not in nameList:
+            nameList.append(a)
+            coundList[a] = 1
+            secondCountList[a] = []
+            secondCountList[a].append(dataWithEmpty[nameSecond][index])
+        else:
+            coundList[a] += 1
+            secondCountList[a].append(dataWithEmpty[nameSecond][index])
+        index += 1
+    maxVal = 0
+    for tempName in secondCountList:
+        if len(secondCountList[tempName]) > maxVal:
+            maxVal = len(secondCountList[tempName])
+
+    for temp in secondCountList:
+        count = maxVal - len(secondCountList[temp])
+        for i in range(count):
+            secondCountList[temp].append(None)
+        # print(maxVal - len(secondCountList[temp]))
+
+
+    # for value in secondCountList.values():
+    #     filteredList.append(value)
+    return nameList, secondCountList
+
+
+normalizedData = normalizationFunction(dataWithoutEmpty)
+
+nameReturned, listasMpeg = ByToConditionalFilter('codec', 'o_codec', 'mpeg4')
+
+nameReturned, listasVp8 = ByToConditionalFilter('codec', 'o_codec', 'vp8')
+
+nameRet, listRet = ConditionalAndContiniousBox('codec', 'bitrate')
+
+nameRet, listRet2 = ConditionalAndContiniousBox('codec', 'utime')
+# nameHeat, dictionaryHeat = ByToConditionalFilterForHeat('codec', 'utime')
 
 # Draw.DrowHist(dataWithoutEmpty['codec'])
 # Draw.DrowHist(dataWithoutEmpty['o_codec'])
 # Draw.DrowHist(dataWithoutEmpty['umem'])
 # Draw.DrowHist(dataWithoutEmpty['utime'])
+# Draw.DrowHist(listRet)
 # histogramos done
 
 
-# Draw.DrowScatter(dataWithEmpty['i'], dataWithEmpty['o_bitrate'])   # padaryti width height kaip kategorini
-# Draw.DrawScatterMatrix(dataWithoutEmpty['utime'], dataWithoutEmpty['umem'], dataWithoutEmpty['p_size'], dataWithoutEmpty['i'], dataWithoutEmpty['framerate']) # duration paskutinis buvo bit rategali buti   framerate su p
-# Draw.DrowBarPlot(nameCodec, listas)
-# Draw.DrowBarPlot(nameCodec, atnrasListas)
-# Draw.DrowBarPlot(nameReturned, listas)
-Draw.BoxPlot(listas)
-# Draw.Heat()
+Draw.DrowScatter(dataWithEmpty['utime'], dataWithEmpty['i'])   # padaryti width height kaip kategorini
+Draw.DrowScatter(dataWithEmpty['p_size'], dataWithEmpty['bitrate'])   # padaryti width height kaip kategorini
+Draw.DrowScatter(dataWithEmpty['utime'], dataWithEmpty['duration'])   # padaryti width height kaip kategorini
+# koreliuoja
+
+Draw.DrowScatter(dataWithEmpty['width'], dataWithEmpty['framerate'])   # padaryti width height kaip kategorini
+Draw.DrowScatter(dataWithEmpty['width'], dataWithEmpty['i'])   # padaryti width height kaip kategorini
+# Nekoreliuoja
+# Scatter diagramos baigtos
+
+Draw.DrawScatterMatrix(dataWithEmpty['width'], dataWithEmpty['umem'], dataWithEmpty['p_size'], dataWithEmpty['framerate'], dataWithEmpty['i']) # duration paskutinis buvo bitrate gali buti   framerate su p
+Draw.DrowBarPlot(nameReturned, listasMpeg)
+Draw.DrowBarPlot(nameReturned, listasVp8)
+Draw.BoxPlot(listRet)
+Draw.BoxPlot(listRet2)
+# Draw.Heat(nameHeat, dictionaryHeat)
+
 with open("Result.csv", "w+", encoding="utf-8-sig", newline='') as csv_file:
     spamwriter = csv.writer(csv_file, delimiter=',')
     spamwriter.writerow(csv_file)
     spamwriter.writerow(
-        ["Atributo pavadiniams", "Kiekis (Eilučių sk.)", "Trūkstamos reikšmės, %", "Kardinalumas", "Minimali reikšmė",
+        ["Atributo pavadinimas", "Kiekis (Eilučių sk.)", "Trūkstamos reikšmės, %", "Kardinalumas", "Minimali reikšmė",
          "Maksimali reikšmė", "1-asis kvartilis", "3-asis kvartilis", "Vidurkis", "Mediana", "Standartinis nuokrypis"])
     for nameTemp in nameList:
         if nameTemp != "id" and nameTemp != "codec" and nameTemp != "o_codec":
@@ -317,7 +482,7 @@ with open("Result.csv", "a+", encoding="utf-8-sig", newline='') as csv_file:
     spamwriter = csv.writer(csv_file, delimiter=',')
     spamwriter.writerow(csv_file)
     spamwriter.writerow(
-        ["Atributo pavadiniams", "Kiekis (Eilučių sk.)", "Trūkstamos reikšmės, %", "Kardinalumas", "Moda",
+        ["Atributo pavadinimas", "Kiekis (Eilučių sk.)", "Trūkstamos reikšmės, %", "Kardinalumas", "Moda",
          "Modos dažnumas", "Moda, %", "2-oji Moda", "2-osios Modos dažnumas", "2-oji Moda, %"])
     for nameTemp in nameList:
         if nameTemp != "id" and (nameTemp == "codec" or nameTemp == "o_codec"):
