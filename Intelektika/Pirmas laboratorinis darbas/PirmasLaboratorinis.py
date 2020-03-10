@@ -80,6 +80,77 @@ def filetrCheck(value, name):
     else:
         return False
 
+def Correct(value, name):
+    if name == "duration" and value < 31.08:
+        return 31.08
+    elif name == "duration" and value > 25844.086:
+        return 25844.086
+    elif name == "width" and value < 176:
+        return 176
+    elif name == "width" and value > 1920:
+        return 1920
+    elif name == "height" and value < 144:
+        return 144
+    elif name == "height" and value > 1080:
+        return  1080
+    elif name == "bitrate" and value < 8384:
+        return 8384
+    elif name == "bitrate" and value > 7628466:
+        return 7628466
+    elif name == "framerate" and value < 5.7057524:
+        return 5.0
+    elif name == "framerate" and value > 1000:
+        return 920
+    elif name == "i" and value < 7:
+        return 7
+    elif name == "i" and value > 5170:
+        return 5170
+    elif name == "p" and value < 175:
+        return 175
+    elif name == "p" and value > 304959:
+        return 304959
+    elif name == "frames" and value < 192:
+        return 192
+    elif name == "frames" and value > 310129:
+        return 310129
+    elif name == "i_size" and value < 11648:
+        return 11648
+    elif name == "i_size" and value > 90828552:
+        return 90828552
+    elif name == "p_size" and value < 33845:
+        return 33845
+    elif name == "p_size" and value > 768996980:
+        return 768996980
+    elif name == "size" and value < 191879:
+        return 191879
+    elif name == "size" and value > 806711069:
+        return 806711069
+    elif name == "o_bitrate" and value < 56000:
+        return 56000
+    elif name == "o_bitrate" and value > 5000000:
+        return 5000000
+    elif name == "o_framerate" and value < 12:
+        return 12
+    elif name == "o_framerate" and value > 29.97:
+        return 29.97
+    elif name == "o_width" and value < 176:
+        return 176
+    elif name == "o_width" and value > 1920:
+        return 1920
+    elif name == "o_height" and value < 144:
+        return 144
+    elif name == "o_height" and value > 1080:
+        return 1080
+    elif name == "umem" and value < 22508:
+        return 22508
+    elif name == "umem" and value > 711824:
+        return 711824
+    elif name == "utime" and value < 0.184:
+        return 0.184
+    elif name == "utime" and value > 224.574:
+        return 224.574
+    else:
+        return 0
 
 def median(datalistTmp, name):
     medianIndex = 0
@@ -278,14 +349,14 @@ for name in nameList:
                     f = float(row[name])
                 except:
                     dataEmpty[name] += 1
-                    dataWithEmpty[name].append(None)
+                    dataWithEmpty[name].append(0)
                 else:
                     if filetrCheck(float(row[name]), name):
                         dataWithoutEmpty[name].append(float(row[name]))
                         dataWithEmpty[name].append(float(row[name]))
                     else:
-                        dataEmpty[name] += 1
-                        dataWithEmpty[name].append(None)
+                        dataWithoutEmpty[name].append(float(Correct(float(row[name]), name)))
+                        dataWithEmpty[name].append(float(Correct(float(row[name]), name)))
 
             elif (name == "id" or name == "codec" or name == "o_codec") and row[name] == "" and row[name] == "nan" and row[name] == "NaN" and row[name] == "NAN":
                 dataEmpty[name] += 1
@@ -297,8 +368,12 @@ for name in nameList:
 
 
         else:
-            dataWithoutEmpty[name].append(int(row[name]))
-            dataWithEmpty[name].append(int(row[name]))
+            if filetrCheck(float(row[name]), name):
+                dataWithoutEmpty[name].append(float(row[name]))
+                dataWithEmpty[name].append(float(row[name]))
+            else:
+                dataWithoutEmpty[name].append(float(Correct(float(row[name]), name)))
+                dataWithEmpty[name].append(float(Correct(float(row[name]), name)))
 
 
 continuousData = ContiniuosCalc(nameList, dataWithoutEmpty, continuousData)
@@ -322,7 +397,7 @@ def SimpleConditionalFilter(name):
             # secondlist[a] += dataWithoutEmpty['utime'][index]
             # index += 1
 
-    for value in filteredList.values():
+    for value in coundList.values():
         filteredList.append(value)
 
     return nameList, filteredList
@@ -355,6 +430,7 @@ def ConditionalAndContiniousBox(nameFirst, nameSecond):
     coundList = {}
     secondCountList = {}
     filteredList = []
+    print(dataWithEmpty[nameFirst])
     for a in dataWithEmpty[nameFirst]:  # tinka duration, resuliucija, bitrate
         if a not in nameList:
             nameList.append(a)
@@ -374,23 +450,25 @@ def ConditionalAndContiniousBox(nameFirst, nameSecond):
 
     for value in secondCountList.values():
         filteredList.append(value)
-    return nameList, filteredList
+    return filteredList
 
-def ConditionalAndContiniousHist(nameFirst, nameSecond):
+def ConditionalAndContiniousHist(nameFirst, nameSecond, filterBy):
     index = 0
     nameList = []
     coundList = {}
     secondCountList = {}
     filteredList = []
     for a in dataWithEmpty[nameFirst]:  # tinka duration, resuliucija, bitrate
-        if a not in nameList:
-            nameList.append(a)
-            coundList[a] = 1
-            secondCountList[a] = dataWithoutEmpty[nameSecond][index]
-        else:
-            coundList[a] += 1
-            secondCountList[a] += dataWithoutEmpty[nameSecond][index]
-        index += 1
+        if a == filterBy:
+            if a not in nameList:
+                nameList.append(a)
+                coundList[a] = 1
+                secondCountList[a] = []
+                secondCountList[a].append(dataWithoutEmpty[nameSecond][index])
+            else:
+                coundList[a] += 1
+                secondCountList[a].append(dataWithoutEmpty[nameSecond][index])
+            index += 1
 
     for value in secondCountList.values():
         filteredList.append(value)
@@ -432,39 +510,71 @@ def ByToConditionalFilterForHeat(nameFirst, nameSecond):
 
 normalizedData = normalizationFunction(dataWithoutEmpty)
 
-nameReturned, listasMpeg = ByToConditionalFilter('codec', 'o_codec', 'mpeg4')
+# nameReturned, listasMpeg = ByToConditionalFilter('codec', 'o_codec', 'mpeg4')
+#
+# nameReturned, listasVp8 = ByToConditionalFilter('codec', 'o_codec', 'vp8')
+#
+# nameReturned, listasFlv = ByToConditionalFilter('codec', 'o_codec', 'flv')
+#
+# nameReturned, listasH264 = ByToConditionalFilter('codec', 'o_codec', 'h264')
 
-nameReturned, listasVp8 = ByToConditionalFilter('codec', 'o_codec', 'vp8')
+nameHeat, dictionaryHeat = ByToConditionalFilterForHeat('codec', 'utime')
 
-nameRet, listRet = ConditionalAndContiniousBox('codec', 'bitrate')
+# listRet = ConditionalAndContiniousBox("codec", "bitrate")
+# listRet2 = ConditionalAndContiniousBox("o_codec", "utime")
+# listRet3 = ConditionalAndContiniousBox("codec", "umem")
 
-nameRet, listRet2 = ConditionalAndContiniousBox('codec', 'utime')
-# nameHeat, dictionaryHeat = ByToConditionalFilterForHeat('codec', 'utime')
 
-# Draw.DrowHist(dataWithoutEmpty['codec'])
-# Draw.DrowHist(dataWithoutEmpty['o_codec'])
-# Draw.DrowHist(dataWithoutEmpty['umem'])
-# Draw.DrowHist(dataWithoutEmpty['utime'])
-# Draw.DrowHist(listRet)
+# Draw.DrowHist(dataWithoutEmpty['bitrate'], "Bitrate", "Video Bitrate Histogram")
+# Draw.DrowHist(dataWithoutEmpty['framerate'], "Framerate", "Video Framerate Histogram")
+# Draw.DrowHist(dataWithoutEmpty['codec'], "Codec", "Codec Histogram")
+# Draw.DrowHist(dataWithoutEmpty['size'], "Size", "Video Size Histogram")
+# Draw.DrowHist(dataWithoutEmpty['o_codec'], "O_Codec", "Output Codec Histogram")
+# Draw.DrowHist(dataWithoutEmpty['o_bitrate'], "O_Bitrate", "Video Output Bitrate Histogram")
+# Draw.DrowHist(dataWithoutEmpty['o_framerate'], "O_Framerate", "Video Output Framerate Histogram")
+# Draw.DrowHist(dataWithoutEmpty['umem'], "Umem", "Used Memory Histogram")
+# Draw.DrowHist(dataWithoutEmpty['utime'], "Utime", "Used Time Histogram")
+
 # histogramos done
 
 
-Draw.DrowScatter(dataWithEmpty['utime'], dataWithEmpty['i'])   # padaryti width height kaip kategorini
-Draw.DrowScatter(dataWithEmpty['p_size'], dataWithEmpty['bitrate'])   # padaryti width height kaip kategorini
-Draw.DrowScatter(dataWithEmpty['utime'], dataWithEmpty['duration'])   # padaryti width height kaip kategorini
+# Draw.DrowScatter(dataWithEmpty['i'], dataWithEmpty['utime'], "Video I Frames", "Utime", "I Video Frames And Used Time")   # padaryti width height kaip kategorini
+# Draw.DrowScatter(dataWithEmpty['p_size'], dataWithEmpty['bitrate'], "P_Size", "Bitrate", "P_Size and Bitrate")   # padaryti width height kaip kategorini
+# Draw.DrowScatter(dataWithEmpty['i_size'], dataWithEmpty['bitrate'], "I_Size", "Bitrate", "I_Size and Bitrate")   # padaryti width height kaip kategorini
+# Draw.DrowScatter(dataWithEmpty['duration'], dataWithEmpty['utime'], "Duration", "Utime", "Video Duration And Used Time")   # padaryti width height kaip kategorini
 # koreliuoja
-
-Draw.DrowScatter(dataWithEmpty['width'], dataWithEmpty['framerate'])   # padaryti width height kaip kategorini
-Draw.DrowScatter(dataWithEmpty['width'], dataWithEmpty['i'])   # padaryti width height kaip kategorini
+#
+# Draw.DrowScatter(dataWithEmpty['width'], dataWithEmpty['framerate'], "Width", "Framerate", "Width And Framerate")   # padaryti width height kaip kategorini
+# Draw.DrowScatter(dataWithEmpty['width'], dataWithEmpty['i'], "Width", "I", "Width And I")   # padaryti width height kaip kategorini
 # Nekoreliuoja
 # Scatter diagramos baigtos
 
-Draw.DrawScatterMatrix(dataWithEmpty['width'], dataWithEmpty['umem'], dataWithEmpty['p_size'], dataWithEmpty['framerate'], dataWithEmpty['i']) # duration paskutinis buvo bitrate gali buti   framerate su p
-Draw.DrowBarPlot(nameReturned, listasMpeg)
-Draw.DrowBarPlot(nameReturned, listasVp8)
-Draw.BoxPlot(listRet)
-Draw.BoxPlot(listRet2)
-# Draw.Heat(nameHeat, dictionaryHeat)
+# Draw.DrawScatterMatrix(dataWithEmpty['width'], dataWithEmpty['umem'], dataWithEmpty['p_size'], dataWithEmpty['framerate'], dataWithEmpty['i'], "Width", "Umem", "P_Size", "Framerate", "Video I Frames") # duration paskutinis buvo bitrate gali buti   framerate su p
+
+# Draw.DrowBarPlot(nameReturned, listasMpeg, "Codec", "Filtered Output Codec just with MPEG4")
+# Draw.DrowBarPlot(nameReturned, listasVp8, "Codec", "Filtered Output Codec just with VP8")
+# Draw.DrowBarPlot(nameReturned, listasFlv, "Codec", "Filtered Output Codec just with FLV")
+# Draw.DrowBarPlot(nameReturned, listasH264, "Codec", "Filtered Output Codec just with H264")
+
+# Draw.DrowBarPlot(dataWithEmpty['codec'], dataWithEmpty['bitrate'], "Codec", "Codec and Bitrate")
+# Draw.DrowBarPlot(dataWithEmpty['o_codec'], dataWithEmpty['utime'], "O_Codec", "Output Codec and Utime")
+# Draw.DrowBarPlot(dataWithEmpty['codec'], dataWithEmpty['umem'], "Codec", "Codec and Umem")
+
+# nameReturn, listFilter = SimpleConditionalFilter("codec")
+# Draw.DrowHist(listFilter, "Codec", "Codec")
+# for name in nameReturn:
+#     nameReturned, histo = ConditionalAndContiniousHist("codec", "umem", name)
+#     Draw.DrowHist(histo, "Codec", "{0} And Umem Histogram".format(name.capitalize()))
+
+# Draw.BoxPlot(dataWithEmpty['bitrate'], listRet)
+# Draw.BoxPlot(dataWithEmpty['utime'], listRet2)
+# Draw.BoxPlot(dataWithEmpty['umem'], listRet3)
+
+heat = {}
+for name in nameList[:14]: #14
+    if name != "id" and name != "codec" and name != "o_codec":
+        heat[name] = dataWithEmpty[name]
+Draw.Heat(nameList, heat)
 
 with open("Result.csv", "w+", encoding="utf-8-sig", newline='') as csv_file:
     spamwriter = csv.writer(csv_file, delimiter=',')

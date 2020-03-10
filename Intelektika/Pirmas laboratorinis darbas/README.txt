@@ -19,3 +19,29 @@ For more information please read the associated paper.
 
 Online Video Characteristics and Transcoding Time Dataset Data Set
 https://archive.ics.uci.edu/ml/datasets/Online+Video+Characteristics+and+Transcoding+Time+Dataset
+
+id = Youtube videp id
+duration = duration of video
+bitrate bitrate(video) = video bitrate
+height = height of video in pixles
+width = width of video in pixles
+frame rate = actual video frame rate
+frame rate(est.) = estimated video frame rate
+codec = coding standard used for the video
+category = YouTube video category
+url = direct link to video (has expiration date)
+i = number of i frames in the video
+p = number of p frames in the video
+b = number of b frames in the video
+frames = number of frames in video
+i_size = total size in byte of i videos
+p_size = total size in byte of p videos
+b_size = total size in byte of b videos
+size = total size of video
+o_codec = output codec used for transcoding
+o_bitrate = output bitrate used for transcoding
+o_framerate = output framerate used for transcoding
+o_width = output width in pixel used for transcoding
+o_height = output height used in pixel for transcoding
+umem = total codec allocated memory for transcoding
+utime = total transcoding time for transcoding

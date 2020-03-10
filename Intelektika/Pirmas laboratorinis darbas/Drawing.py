@@ -6,41 +6,41 @@ import matplotlib.pyplot as plot
 import seaborn as sb
 
 
-def DrowHist(dataList):
+def DrowHist(dataList, X_name, name):
     ax1 = plot.subplots(nrows = 1, ncols = 1)
     # sb.distplot(dataList, kde=True, ax = ax1, bins=20)
+    # testData = [40, 10, 11, 2]
     plot.hist(dataList)
-    # plot.set_xlabel("utime")
-    # plot.set_ylabel("frequency")
-    # plot.set_title("kazkas")
+    plot.xlabel(X_name)
+    plot.ylabel("frequency")
+    plot.title(name)
     plot.show()
 
 
-def DrowScatter(dataList, datalist2):
+def DrowScatter(dataList, datalist2, x, y, name):
     ax1 = plot.subplots(nrows = 1, ncols = 1)
     plot.scatter(dataList, datalist2)
-    # plot.set_xlabel("utime")
-    # plot.set_ylabel("frequency")
-    # plot.set_title("kazkas")
+    plot.xlabel(x)
+    plot.ylabel(y)
+    plot.title(name)
     plot.show()
 
 
-def DrowBarPlot(dataName, dataList):
+def DrowBarPlot(dataName, dataList, xName, name):
 
     # y_pos = np.arange(len(dataName))
     # print(dataName)
     # print(dataList)
     # fig, (ax1, ax2) = plot.subplots(nrows=2, ncols=1)
     plot.bar(dataName, dataList)
-    # plot.xticks(y_pos, dataName)
-    # plot.set_xlabel("utime")
-    # plot.set_ylabel("frequency")
-    # plot.set_title("kazkas")
+    plot.xlabel(xName)
+    plot.ylabel("Frequency")
+    plot.title(name)
     plot.show()
 
-def DrawScatterMatrix(list1, list2, list3, list4, list5):
+def DrawScatterMatrix(list1, list2, list3, list4, list5, name1, name2, name3, name4, name5):
 
-    d = {'list1':list1, 'list2':list2, 'list3':list3, 'list4':list4, 'list5':list5}
+    d = {name1:list1, name2:list2, name3:list3, name4:list4, name5:list5}
     df = pd.DataFrame(data=d)
     # print(np.random.rand(50, 4))
     # df.plot.scatter(x='a', y='b')
@@ -50,11 +50,12 @@ def DrawScatterMatrix(list1, list2, list3, list4, list5):
     plot.show()
 
 
-def BoxPlot(data):
+def BoxPlot(data1, data2):
     fig, (ax1, ax2) = plot.subplots(nrows=1, ncols=2)
     # da = np.random.rand(10, 1)
     # data={"pav":da}
-    ax1.boxplot(data)
+    ax1.boxplot(data1)
+    ax2.boxplot(data2)
     # df = pd.DataFrame(np.random.rand(10, 1))
     # df['X'] = pd.Series(['A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'B', 'B'])
     # df['X'] = pd.Series(['A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'B', 'B'])
