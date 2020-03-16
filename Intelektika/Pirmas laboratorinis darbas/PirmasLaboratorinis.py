@@ -2,7 +2,6 @@ import csv
 from operator import itemgetter
 import Drawing as Draw
 
-
 class Continuous:
     def __init__(self, name, amount, missing, cardinality, min, max, quartile1, quartile3, average, median, standardDeviation):
         self.name = name
