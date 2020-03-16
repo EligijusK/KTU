@@ -1,10 +1,60 @@
 import numpy as np
+import Drawing as draw
+
+year = []
+sunSpotActivity = []
+
+def ReadFile(fileName):
+    tempYear = []
+    sunSpotActivityTemp = []
+    file = open(fileName, "r")
+    for line in file.readlines():
+        lineWithoutSpecial = line.strip()
+        split = lineWithoutSpecial.split("\t")
+        tempYear.append(int(split[0]))
+        sunSpotActivityTemp.append(int(split[1]))
+    return tempYear, sunSpotActivityTemp
+
+
+def normalizationFunction(list, min, max):
+    data = []
+    for element in list:
+        temp = []
+        for a in element:
+            temp.append(((float(a) - min)/(max-min))*(1-(0))+(0))
+        data.append(temp)
+    return data
+
+
+year, sunSpotActivity = ReadFile("sunspot.txt")
+L = len(sunSpotActivity)
+sunSpotActivityDataUsage = []
+for a in range(L-1):
+    sunSpotActivityDataUsage.append([int(sunSpotActivity[a]), int(sunSpotActivity[a+1])])
+
+answerForSunActivity = []
+
+for element in sunSpotActivity[2:L]:
+    answerForSunActivity.append([element])
+
+# print(np.array(AnswerForSunActivity))
+# print(np.array(sunSpotActivityDataUsage))
+# draw.DrowPlot3D(sunSpotActivityDataUsage[0], sunSpotActivityDataUsage[1], AnswerForSunActivity)
+
+# draw.DrowPlot(year, sunSpotActivity)
+
+dataForTraining = sunSpotActivityDataUsage[0:200]
+dataForTrainingAnswer = answerForSunActivity[0:200]
+
+dataForTrainingNormalized = normalizationFunction(dataForTraining, min(sunSpotActivityDataUsage)[0], max(sunSpotActivityDataUsage)[0])
+dataForTrainingAnswerNormalized = normalizationFunction(dataForTrainingAnswer, min(dataForTrainingAnswer)[0], max(dataForTrainingAnswer)[0])
+# print(np.array(DataForTrainingAnswerNormalized))
 
 def calcDirivAndE(matrix, dirivative=False):
     if dirivative:
         return matrix * (1 - matrix)
     else:
-        return 1/(1+np.exp(matrix))
+        return 1/(1+np.exp(-matrix))
 
 x = [
     [0, 0, 0, 1],
@@ -20,34 +70,28 @@ y = [
     [1]
     ]
 
-np.random.seed(1)
-syn0 = 2 * np.random.random((4, 4)) - 1
-syn1 = 2 * np.random.random((4, 1)) - 1
+# np.random.seed(1)
+syn0 = 2 * np.random.random((2, 200))-1
+syn1 = 2 * np.random.random((200, 1))-1
 
-for i in range(600000):
+for iter in range(600000):
 
-    # Feed forward through layers 0, 1, and 2
-    l0 = np.array(x)
-    l1 = calcDirivAndE(np.dot(l0, syn0))  # matrix multiplication and then e^x for all elements
-    l2 = calcDirivAndE(np.dot(l1, syn1))  # calculating value second connection same as for first one
+    # forward propagation
+    l0 = np.array(dataForTrainingNormalized)
+    l1 = calcDirivAndE(np.dot(l0,syn0))
+    # how much did we miss?
+    l1_error = np.array(dataForTrainingAnswerNormalized) - l1
 
-    # how much did we miss the target value?
-    l2_error = y - l2
+    # print(l1_error[0][0])
+    if (iter % 10000) == 0:
+        print("Error:" + str(np.mean(np.abs(l1_error))))
+    # multiply how much we missed by the
+    # slope of the sigmoid at the values in l1
+    l1_delta = l1_error * calcDirivAndE(l1,True)
 
-    if (i % 10000) == 0:
-        print("Error:" + str(np.mean(np.abs(l2_error))))
+    # update weights
+    syn0 += np.dot(l0.T,l1_delta)
 
-    # in what direction is the target value?
-    # were we really sure? if so, don't change too much.
-    l2_delta = l2_error * calcDirivAndE(l2, True)
 
-    # how much did each l1 value contribute to the l2 error (according to the weights)?
-    l1_error = l2_delta.dot(syn1.T)
-
-    # in what direction is the target l1?
-    # were we really sure? if so, don't change too much.
-    l1_delta = l1_error * calcDirivAndE(l1, True)
-
-    syn1 += l1.T.dot(l2_delta)
-    syn0 += l0.T.dot(l1_delta)
-
+# print("Output After Training:")
+# print(l1)
