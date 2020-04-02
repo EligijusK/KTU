@@ -73,12 +73,14 @@ y = [
 # np.random.seed(1)
 syn0 = 2 * np.random.random((2, 200))-1
 syn1 = 2 * np.random.random((200, 1))-1
+bias = np.random.rand(1)
+lr = 0.05
 
 for iter in range(600000):
 
     # forward propagation
     l0 = np.array(dataForTrainingNormalized)
-    l1 = calcDirivAndE(np.dot(l0,syn0))
+    l1 = calcDirivAndE(np.dot(l0,syn0) + bias)
     # how much did we miss?
     l1_error = np.array(dataForTrainingAnswerNormalized) - l1
 
@@ -90,8 +92,12 @@ for iter in range(600000):
     l1_delta = l1_error * calcDirivAndE(l1,True)
 
     # update weights
-    syn0 += np.dot(l0.T,l1_delta)
+    syn0 -= lr * np.dot(l0.T,l1_delta)
 
+    for num in l1_delta:
+        bias -= lr * num[0]
 
 # print("Output After Training:")
+print(np.average(syn0[0]))
+print(np.average(syn0[1]))
 # print(l1)

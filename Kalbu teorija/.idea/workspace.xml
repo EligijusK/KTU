@@ -2,13 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ac6e6daf-d86e-4028-a109-dafef21540cb" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../Intelektika/Antras laboratorinis/exercies.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Intelektika/Antras laboratorinis/exercies.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Intelektika/Antras laboratorinis/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Intelektika/Antras laboratorinis/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pirmas Laboratorinis/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pirmas Laboratorinis/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Antras Laboratorinis/Scalatron/bin/start.sh" beforeDir="false" afterPath="$PROJECT_DIR$/Antras Laboratorinis/Scalatron/bin/start.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Antras Laboratorinis/Scalatron/bots/elikiu/ScalatronBot.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Antras Laboratorinis/Scalatron/bots/elikiu/ScalatronBot.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Antras Laboratorinis/Scalatron/users/elikiu/patched/Bot.scala" beforeDir="false" afterPath="$PROJECT_DIR$/Antras Laboratorinis/Scalatron/users/elikiu/patched/Bot.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Antras Laboratorinis/Scalatron/users/elikiu/src/Bot.scala" beforeDir="false" afterPath="$PROJECT_DIR$/Antras Laboratorinis/Scalatron/users/elikiu/src/Bot.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -48,11 +58,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.main" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -67,6 +72,8 @@
       <workItem from="1581491571745" duration="14000" />
       <workItem from="1582205047713" duration="3011000" />
       <workItem from="1582208698201" duration="941000" />
+      <workItem from="1585748124400" duration="15000" />
+      <workItem from="1585748367830" duration="520000" />
     </task>
     <servers />
   </component>
@@ -90,13 +97,11 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1582208474655" />
-    <state x="397" y="267" key="com.intellij.ide.util.TipDialog" timestamp="1582208698220">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="423" y="244" key="com.intellij.ide.util.TipDialog" timestamp="1585748368842">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="397" y="267" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1582208698220" />
+    <state x="423" y="244" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1585748368842" />
     <state x="397" y="269" key="com.intellij.ide.util.TipDialog/0.23.1440.828@0.23.1440.828" timestamp="1581491572031" />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Kalbu_teorija$main.coverage" NAME="main Coverage Results" MODIFIED="1582208432598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Pirmas Laboratorinis" />
   </component>
 </project>
