@@ -1,0 +1,5 @@
+number a = 10
+word la = a.ConvertToWord()
+Print(la)
+PrintLine(la)
+Print(" " + la)
