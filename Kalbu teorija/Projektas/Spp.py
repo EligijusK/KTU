@@ -4,7 +4,7 @@ from sly import Lexer
 from sly import Parser
 import warnings
 
-class CalcLexer(Lexer):
+class SppLexer(Lexer):
     # Set of token names.   This is always required
     tokens = { TYPE, ID, NUMBER, REALNUMBER, WORD, LETTER, ASSIGN,
                IF, ELSE, WHILE, DO, DONE, FOR, RETURN, STATIC,
@@ -71,9 +71,9 @@ class CalcLexer(Lexer):
 
 
 
-class CalcParser(Parser):
+class SppParser(Parser):
 
-    tokens = CalcLexer.tokens
+    tokens = SppLexer.tokens
 
     precedence = (
         ('left', '>', '<', LE, ME, EQ, NE, OR, AND),
@@ -150,7 +150,10 @@ class CalcParser(Parser):
 
     @_('ID "." function_call')
     def variable_function_call(self, p):
-        return ('func_call', p.function_call[1], ('func_call_var', ('var', p.ID, p.lineno), None), p.lineno)
+        if p.function_call[1] == "Previous":
+            return ('func_call', p.function_call[1], p.ID, p.lineno)
+        else:
+            return ('func_call', p.function_call[1], ('func_call_var', ('var', p.ID, p.lineno), None), p.lineno)
 
     @_('ID "(" ")" ')
     def function_call(self, p):
@@ -281,7 +284,7 @@ class CalcParser(Parser):
         print("Error " + string.type + " at line: " + str(string.lineno) + " at index: " + str(string.index) )
         main()
 
-class CalcExecute:
+class SppExecute:
 
     def __init__(self, tree, env, prevEnv):
         self.env = env
@@ -418,6 +421,7 @@ class CalcExecute:
                     self.error("Wrong number of arguments for function 'ConvertToLetter'. Line: %d" % node[3])
                 value = self.walkTree(vals[0])
                 elName = vals[0][1]
+                print(value)
                 if isinstance(value, str) and len(value) == 1:
                     self.error("'" + elName + "' in function 'ConvertToLetter' is already type of 'letter'. Line: %d" % node[3])
                 elif (isinstance(value, str) and len(value) > 1) or (isinstance(value, int) and value > 9):
@@ -485,6 +489,7 @@ class CalcExecute:
             function = self.env[node[1]]
             result = self.walkTree(function[3])
             functionType = function[1]
+            print(function[1])
             if not ((isinstance(result, int) & (functionType == "number")) | (
                     isinstance(result, str) & (functionType == "word")) | (
                     isinstance(result, str) & (functionType == "letter")) | (
@@ -573,6 +578,7 @@ class CalcExecute:
         if node[0] == 'var_assign':
             var = self.walkTree(node[1])
             value = self.walkTree(node[2])
+            print(self.env[var])
             isStatic = self.env[var][3]
             # print(isStatic)
             if isStatic == False:
@@ -656,25 +662,18 @@ class CalcExecute:
 
 
 def main():
-    data = '''
-    // Counting
-    int x = 0
-    while (x < 10) do
-        print x
-        x = x + 1
-    done
-    '''
+
     env = {}
     prevEnv = {}
-    lexer = CalcLexer()
-    parser = CalcParser()
-    text = None;
-    choice = None;
+    lexer = SppLexer()
+    parser = SppParser()
+    text = None
+    choice = None
     try:
         text = open(sys.argv[1]).read()
         if text:
             tree = parser.parse(lexer.tokenize(text))
-            CalcExecute(tree, env, prevEnv)
+            SppExecute(tree, env, prevEnv)
     except (IndexError, FileNotFoundError) as e:
         while ((choice != 'F') & (choice != 'L') & (choice != 'Q')):
             choice = input("Input file (F), command lines (L) or quit (Q)?: ")
@@ -686,19 +685,18 @@ def main():
                         if text == 'Q':
                             sys.exit()
                         tree = parser.parse(lexer.tokenize(text))
-                        CalcExecute(tree, env, prevEnv)
-                        print()
+                        SppExecute(tree, env, prevEnv)
                         main()
                 except FileNotFoundError:
                     print("File not found, try again.")
         elif choice == 'L':
             while True:
-                text = input('S++ > ')
+                text = input('s++ > ')
                 if text:
                     if text == 'Q':
                         sys.exit()
                     tree = parser.parse(lexer.tokenize(text))
-                    CalcExecute(tree, env, prevEnv)
+                    SppExecute(tree, env, prevEnv)
 
 
 
