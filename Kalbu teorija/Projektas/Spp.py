@@ -25,8 +25,8 @@ class SppLexer(Lexer):
 
     ID      = r'[a-zA-Z_][a-zA-Z0-9_]*'
     NUMBER  = r'\d+'
-    ASSIGN  = r'='
     EQ = r'=='
+    ASSIGN  = r'='
     NE = r'!='
     LE = r'<='
     ME = r'>='
@@ -92,6 +92,10 @@ class SppParser(Parser):
     def statements(self, p):
         return ('program', p[0], None)
 
+    @_('statement RETURN statement')
+    def statements(self, p):
+        return ('program', p[0], ('program', p[2], None, p[1]))
+
     # statements
 
     # function definition
@@ -130,38 +134,26 @@ class SppParser(Parser):
 
     @_('expr "," func_call_vars')
     def func_call_vars(self, p):
-        return ('func_call_var', p.expr, p.func_call_vars);
+        return ('func_call_var', p.expr, p.func_call_vars)
 
     @_('expr')
     def func_call_vars(self, p):
-        return ('func_call_var', p.expr, None);
+        return ('func_call_var', p.expr, None)
 
     # function define variables end
 
     # calling functions start
 
-    @_('function_call')
-    def statement(self, p):
-        return p.function_call
-
     @_('variable_function_call')
     def statement(self, p):
         return p.variable_function_call
 
-    @_('ID "." function_call')
+    @_('ID "." expr')
     def variable_function_call(self, p):
-        if p.function_call[1] == "Previous":
-            return ('func_call', p.function_call[1], p.ID, p.lineno)
+        if p.expr[1] == "Previous":
+            return ('func_call', p.expr[1], p.ID, p.lineno)
         else:
-            return ('func_call', p.function_call[1], ('func_call_var', ('var', p.ID, p.lineno), None), p.lineno)
-
-    @_('ID "(" ")" ')
-    def function_call(self, p):
-        return ('func_call', p.ID, None, p.lineno)
-
-    @_('ID "(" func_call_vars ")" ')
-    def function_call(self, p):
-        return ('func_call', p.ID, p.func_call_vars, p.lineno)
+            return ('func_call', p.expr[1], ('func_call_var', ('var', p.ID, p.lineno), None), p.lineno)
 
     # calling functions end
 
@@ -204,10 +196,14 @@ class SppParser(Parser):
     def bracket_statements(self, p):
         return p.statements
 
-    @_( 'DO statements RETURN expr DONE',
-        'DO statements RETURN variable_function_call DONE')
-    def return_bracket_statements(self, p):
-        return p.statements
+    @_( 'DO statements DONE',
+        'DO RETURN expr DONE',
+        'DO RETURN variable_function_call DONE',)
+    def return_bracket_statements(self, p): # reikia padaryti kad eitu declare darti is naujo kvieciant funkcija
+        if(len(p) == 4):
+            return ('program', p[2], None, p[1])
+        else:
+            return p[1]
 
     @_( 'var_assign',
         'var_declare',
@@ -242,6 +238,14 @@ class SppParser(Parser):
     def expr(self, p):
         return p.expr
 
+    @_('ID "(" ")" ')
+    def expr(self, p):
+        return ('func_call', p.ID, None, p.lineno)
+
+    @_('ID "(" func_call_vars ")" ')
+    def expr(self, p):
+        return ('func_call', p.ID, p.func_call_vars, p.lineno)
+
     @_('NUMBER')
     def expr(self, p):
         return ("numberValue", int(p.NUMBER))
@@ -265,10 +269,10 @@ class SppParser(Parser):
     def expr(self, p):
         return ('var', p.ID, p.lineno)
 
-    @_('var_declare ASSIGN expr',
-       'var_declare ASSIGN variable_function_call',
-       'ID ASSIGN variable_function_call',
-       'ID ASSIGN expr')
+    @_( 'var_declare ASSIGN expr',
+        'var_declare ASSIGN variable_function_call',
+        'ID ASSIGN variable_function_call',
+        'ID ASSIGN expr')
     def var_assign(self, p):
         return ('var_assign', p[0], p[2], p.lineno)
 
@@ -307,6 +311,8 @@ class SppExecute:
             return None
 
         if node[0] == 'program':
+            if node[2] == None and len(node) == 4 and node[3] == 'return':
+                return ('return', self.walkTree(node[1]))
             if node[2] == None:
                 return self.walkTree(node[1])
             else:
@@ -457,53 +463,53 @@ class SppExecute:
                     self.error("String can't be converted to real. Line: %d" % node[3])
                 return int(value)
 
-            conflict_variables = {}
-            confilctBack_variables = {}
-            variables = self.env.copy()
-            variablesBack = self.prevEnv.copy()
-            if node[2] != None:
-                vars = self.env[node[1]][2]
-                var_length = len(vars)
-                if (var_length != length):
-                    self.error("Wrong number of arguments for function '" + node[1] + ";. Line %d" % node[3])
-                for i in range(length):
-                    typeValue = vars[i][1]
-                    value = self.walkTree(vals[i])
-                    if (isinstance(value, int) & (typeValue == 'number')) | (
-                            isinstance(value, str) & (typeValue == 'word')) | (
-                            isinstance(value, str) & (typeValue == 'letter') | (
-                            isinstance(value, str) & (typeValue == 'real'))):
-                        conflict_var = vars[i][2]
-                        confilctBack_var = variablesBack[i][2]
-                        if conflict_var in self.env:
-                            conflict_variables[conflict_var] = self.env[conflict_var]
-                            del self.env[conflict_var]
-                        if confilctBack_var in self.variablesBack:
-                            confilctBack_variables[conflict_var] = self.variablesBack[confilctBack_var]
-                            del self.variablesBack[confilctBack_var]
-                        self.env[self.walkTree(vars[i])] = ('var', typeValue, value)
-                    else:
-                        self.error("%d argument for function '%s' must be of type '%s'. Line %d" % (
-                            i, node[1], typeValue, node[3]))
+            # conflict_variables = {}
+            # confilctBack_variables = {}
+            # variables = self.env.copy()
+            try:
+                conflict_variables = {}
+                variables = self.env.copy()
 
-            function = self.env[node[1]]
-            result = self.walkTree(function[3])
-            functionType = function[1]
-            print(function[1])
-            if not ((isinstance(result, int) & (functionType == "number")) | (
-                    isinstance(result, str) & (functionType == "word")) | (
-                    isinstance(result, str) & (functionType == "letter")) | (
-                    isinstance(result, str) & (functionType == "real"))):
-                self.error("Return type does not match returning value in function '" + node[1] + "'")
-            variablesBack2 = self.prevEnv.copy()
-            for key in variablesBack2:
-                if key not in variablesBack:
-                    del self.prevEnv[key]
-            variables2 = self.env.copy()
-            for key in variables2:
-                if key not in variables:
-                    del self.env[key]
-            return result
+                if node[2] != None:
+                    vars = self.env[node[1]][2]
+                    var_length = len(vars)
+                    if (var_length != length):
+                        self.error("Wrong number of arguments for function '" + node[1] + ";. Line %d" % node[3])
+                    for i in range(length):
+                        typeValue = vars[i][1]
+                        value = self.walkTree(vals[i])
+                        if (isinstance(value, int) & (typeValue == 'number')) | (
+                                isinstance(value, float) & (typeValue == 'real')) | (
+                                isinstance(value, str) & (typeValue == 'word')) | (
+                                isinstance(value, str) & (typeValue == 'letter')):
+                            conflict_var = vars[i][2]
+                            if conflict_var in self.env:
+                                conflict_variables[conflict_var] = self.env[conflict_var]
+                                del self.env[conflict_var]
+                            self.env[self.walkTree(vars[i])] = ('var', typeValue, value)
+                        else:
+                            self.error("%d argument for function '%s' must be of type '%s'. Line %d" % (
+                            i, node[1], typeValue, node[3]))
+                function = self.env[node[1]]
+                result = self.walkTree(function[3])
+                if result[0] == 'return':
+                    functionType = function[1]
+                    if not ((isinstance(value, int) & (typeValue == 'number')) | (
+                                    isinstance(value, float) & (typeValue == 'real')) | (
+                                    isinstance(value, str) & (typeValue == 'word')) | (
+                                    isinstance(value, str) & (typeValue == 'letter'))):
+                        self.error("Return type does not match returning value in function '" + node[1] + "'")
+                    variables2 = self.env.copy()
+                    for key in variables2:
+                        if key not in variables:
+                            del self.env[key]
+                    for key in conflict_variables:
+                        self.env[key] = conflict_variables[key]
+                    return result[1]
+                self.error("function '%s' doesnt return anything. Line: %d" % (node[1], node[3]))
+            except LookupError:
+                self.error("Undefined function '%s'. Line: %d" % (node[1], node[3]))
+                return None
 
         if node[0] == 'func_call_var':
             var = node
@@ -513,6 +519,13 @@ class SppExecute:
                 var = var[2]
             return vars
 
+        if node[0] == 'func_var':
+            var = node
+            vars = (node[1],)
+            while var[2] != None:
+                vars = vars + (var[2][1],)
+                var = var[2]
+            return vars
 
         if node[0] == 'expr':
             value1 = self.walkTree(node[2])
@@ -578,7 +591,8 @@ class SppExecute:
         if node[0] == 'var_assign':
             var = self.walkTree(node[1])
             value = self.walkTree(node[2])
-            print(self.env[var])
+            # print(self.env[var])
+            # print(value)
             isStatic = self.env[var][3]
             # print(isStatic)
             if isStatic == False:
@@ -618,36 +632,32 @@ class SppExecute:
             elif isStatic == True and self.env[var][4] == True:
                 self.error("Static variable '" + var + "' can't be changed. Line %d." % node[3])
 
-
         if node[0] == 'var_declare':
             key = node[2]
-            if key not in self.env.keys():
-                if node[3] == False:
-                    if (node[1] == 'number'):
-                        self.env[node[2]] = ('var', 'number', 0, False)
-                        self.prevEnv[node[2]] = ('previousVar', 'number', 0)
-                    elif (node[1] == 'real'):
-                        self.env[node[2]] = ('var', 'real', 0.0, False)
-                        self.prevEnv[node[2]] = ('previousVar', 'real', 0.0)
-                    elif (node[1] == 'word'):
-                        self.env[node[2]] = ('var', 'word', "", False)
-                        self.prevEnv[node[2]] = ('previousVar', 'word', "")
-                    elif (node[1] == 'letter'):
-                        self.env[node[2]] = ('var', 'letter', '', False)
-                        self.prevEnv[node[2]] = ('previousVar', 'letter', "")
-                    return node[2]
-                else:
-                    if (node[1] == 'number'):
-                        self.env[node[2]] = ('var', 'number', 0, True, False)
-                    elif (node[1] == 'real'):
-                        self.env[node[2]] = ('var', 'real', 0.0, True, False)
-                    elif (node[1] == 'word'):
-                        self.env[node[2]] = ('var', 'word', "", True, False)
-                    elif (node[1] == 'letter'):
-                        self.env[node[2]] = ('var', 'letter', '', True, False)
-                    return node[2]
+            if node[3] == False:
+                if (node[1] == 'number'):
+                    self.env[node[2]] = ('var', 'number', 0, False)
+                    self.prevEnv[node[2]] = ('previousVar', 'number', 0)
+                elif (node[1] == 'real'):
+                    self.env[node[2]] = ('var', 'real', 0.0, False)
+                    self.prevEnv[node[2]] = ('previousVar', 'real', 0.0)
+                elif (node[1] == 'word'):
+                    self.env[node[2]] = ('var', 'word', "", False)
+                    self.prevEnv[node[2]] = ('previousVar', 'word', "")
+                elif (node[1] == 'letter'):
+                    self.env[node[2]] = ('var', 'letter', '', False)
+                    self.prevEnv[node[2]] = ('previousVar', 'letter', "")
+                return node[2]
             else:
-                self.error("Variable '" + node[2] + "' is already declared. Line %d." % node[3])
+                if (node[1] == 'number'):
+                    self.env[node[2]] = ('var', 'number', 0, True, False)
+                elif (node[1] == 'real'):
+                    self.env[node[2]] = ('var', 'real', 0.0, True, False)
+                elif (node[1] == 'word'):
+                    self.env[node[2]] = ('var', 'word', "", True, False)
+                elif (node[1] == 'letter'):
+                    self.env[node[2]] = ('var', 'letter', '', True, False)
+                return node[2]
 
         if node[0] == 'var':
             try:
@@ -673,6 +683,7 @@ def main():
         text = open(sys.argv[1]).read()
         if text:
             tree = parser.parse(lexer.tokenize(text))
+            print(tree)
             SppExecute(tree, env, prevEnv)
     except (IndexError, FileNotFoundError) as e:
         while ((choice != 'F') & (choice != 'L') & (choice != 'Q')):
@@ -696,6 +707,7 @@ def main():
                     if text == 'Q':
                         sys.exit()
                     tree = parser.parse(lexer.tokenize(text))
+                    print(tree)
                     SppExecute(tree, env, prevEnv)
 
 

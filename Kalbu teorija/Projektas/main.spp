@@ -1,5 +1,32 @@
-number a = 10
-word la = a.ConvertToWord()
-Print(la)
-PrintLine(la)
-Print(" " + la)
+number recursion(number num)
+do
+    number ret
+    if (num == 0)
+    do
+        ret = 0
+    done
+    else if (num == 1)
+    do
+        ret = 1
+    done
+    else
+        ret = recursion(num - 1) + recursion(num - 2)
+    return ret
+done
+
+recursion(3)
+
+number fibonacci2(number n)
+do
+        number a = 0
+        number b = 1
+        for (number i = 0; i < n; i = i + 1)
+        do
+            number temp = a
+            a = b
+            b = temp + b
+        done
+        return a
+done
+
+fibonacci2(7)
