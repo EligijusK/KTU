@@ -427,7 +427,6 @@ class SppExecute:
                     self.error("Wrong number of arguments for function 'ConvertToLetter'. Line: %d" % node[3])
                 value = self.walkTree(vals[0])
                 elName = vals[0][1]
-                print(value)
                 if isinstance(value, str) and len(value) == 1:
                     self.error("'" + elName + "' in function 'ConvertToLetter' is already type of 'letter'. Line: %d" % node[3])
                 elif (isinstance(value, str) and len(value) > 1) or (isinstance(value, int) and value > 9):
@@ -469,7 +468,6 @@ class SppExecute:
             try:
                 conflict_variables = {}
                 variables = self.env.copy()
-
                 if node[2] != None:
                     vars = self.env[node[1]][2]
                     var_length = len(vars)
@@ -481,7 +479,7 @@ class SppExecute:
                         if (isinstance(value, int) & (typeValue == 'number')) | (
                                 isinstance(value, float) & (typeValue == 'real')) | (
                                 isinstance(value, str) & (typeValue == 'word')) | (
-                                isinstance(value, str) & (typeValue == 'letter')):
+                                isinstance(value, str) and ( len(value) == 1) and (typeValue == 'letter')):
                             conflict_var = vars[i][2]
                             if conflict_var in self.env:
                                 conflict_variables[conflict_var] = self.env[conflict_var]
@@ -494,10 +492,10 @@ class SppExecute:
                 result = self.walkTree(function[3])
                 if result[0] == 'return':
                     functionType = function[1]
-                    if not ((isinstance(value, int) & (typeValue == 'number')) | (
-                                    isinstance(value, float) & (typeValue == 'real')) | (
-                                    isinstance(value, str) & (typeValue == 'word')) | (
-                                    isinstance(value, str) & (typeValue == 'letter'))):
+                    if not ((isinstance(result[1], int) & (functionType == 'number')) | (
+                                    isinstance(result[1], float) & (functionType == 'real')) | (
+                                    isinstance(result[1], str) & (functionType == 'word')) | (
+                                    isinstance(result[1], str) and (len(result[1]) == 1) and (functionType == 'letter'))):
                         self.error("Return type does not match returning value in function '" + node[1] + "'")
                     variables2 = self.env.copy()
                     for key in variables2:
@@ -607,7 +605,7 @@ class SppExecute:
                     elif (varType == 'word') & isinstance(value, str):
                         self.prevEnv[var] = self.env[var]
                         self.env[var] = ('var', varType, value, False)
-                    elif (varType == 'letter') & isinstance(value, str):
+                    elif (varType == 'letter') and (len(value) == 1) and isinstance(value, str):
                         self.prevEnv[var] = self.env[var]
                         self.env[var] = ('var', varType, value, False)
                     else: self.error("Value assigned to variable of wrong type. Line: %d." % node[3])
@@ -623,7 +621,7 @@ class SppExecute:
                         self.env[var] = ('var', varType, value, True, True)
                     elif (varType == 'word') & isinstance(value, str):
                         self.env[var] = ('var', varType, value, True, True)
-                    elif (varType == 'letter') & isinstance(value, str):
+                    elif (varType == 'letter') and isinstance(value, str) and (len(value) == 1):
                         self.env[var] = ('var', varType, value, True, True)
                     else: self.error("Value assigned to variable of wrong type. Line: %d." % node[3])
                 except LookupError:
@@ -683,32 +681,34 @@ def main():
         text = open(sys.argv[1]).read()
         if text:
             tree = parser.parse(lexer.tokenize(text))
-            print(tree)
             SppExecute(tree, env, prevEnv)
+
     except (IndexError, FileNotFoundError) as e:
-        while ((choice != 'F') & (choice != 'L') & (choice != 'Q')):
+
+        while (choice == None or (choice.upper() != 'F') & (choice.upper() != 'L') & (choice.upper() != 'Q')):
             choice = input("Input file (F), command lines (L) or quit (Q)?: ")
-        if choice == 'F':
+        if choice.upper() == 'F':
             while True:
                 try:
                     text = open(input('Input file: ')).read()
                     if text:
-                        if text == 'Q':
+                        if text.upper() == 'Q':
                             sys.exit()
                         tree = parser.parse(lexer.tokenize(text))
                         SppExecute(tree, env, prevEnv)
                         main()
                 except FileNotFoundError:
                     print("File not found, try again.")
-        elif choice == 'L':
+        elif choice.upper() == 'L':
             while True:
                 text = input('s++ > ')
                 if text:
-                    if text == 'Q':
+                    if text.upper() == 'Q':
                         sys.exit()
                     tree = parser.parse(lexer.tokenize(text))
-                    print(tree)
                     SppExecute(tree, env, prevEnv)
+        elif choice.upper() == 'Q':
+            sys.exit()
 
 
 

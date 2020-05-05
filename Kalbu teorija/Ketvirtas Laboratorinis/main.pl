@@ -95,14 +95,17 @@ generateDoubleList([ ], Start, Answ) :- % assign answer value
 
 generateDoubleList([Head | Tail], Empty, Answ) :-
     firstSecElements(Head, First, Second),
+%    prasideda if salygos aprasymas su (
     (
-    number(Second) -> % check if element is number
-
+    number(Second) -> % check if element is number CIA PARASYTA SALYGA
+%    -------------------------------- prasideda jeigu salyga yra True
     genListByElement(Second, First, List), % create listh with reapiting elements
     TempList = List,
     append(Empty, [TempList], Value), % add list to list
     generateDoubleList(Tail, Value, Answ) ; % add elements while array is empty
+% ----------------------------------------- baigiasi kai salyga yra true pabaigimui yra padėta ; gale
 
+% -------------------------------------------- prasideda else salyga jei nori, jei nenaudosi else gali palikti tuscia ir uzbaiti ifa su )
     atom(Second) -> % check if element is char
 
         % if atom do this
@@ -119,8 +122,9 @@ generateDoubleList([Head | Tail], Empty, Answ) :-
         append(Empty, [[X]], Value), % append res to list
         generateDoubleList(Tail, Value, Answ) % add elements while array is empty
 
+% --------------------------------------------- baigiasi else salyga
     ).
-
+% ---------------------------------------------- uzbaigiamas ifas su ) kadangi paskutinis veiksmas dar prisideda ir .
 increasingList(List, Res) :- % function for returning results
     generateDoubleList(List, [], Res).
 

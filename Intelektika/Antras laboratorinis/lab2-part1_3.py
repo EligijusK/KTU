@@ -61,9 +61,15 @@ def mad(errors):
 
 year, sunSpotActivity = ReadFile("sunspot.txt")
 L = len(sunSpotActivity)
+n = 10
 sunSpotActivityDataUsage = []
-for a in range(L-2):
-    sunSpotActivityDataUsage.append([int(sunSpotActivity[a]), int(sunSpotActivity[a+1])])
+for a in range(L-n):
+    temp = []
+    for i in range(n):
+        temp.append(int(sunSpotActivity[a+i]))
+    sunSpotActivityDataUsage.append(temp)
+
+
 
 answerForSunActivity = []
 answerForSunActivityGraphic = []

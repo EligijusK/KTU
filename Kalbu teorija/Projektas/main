@@ -1,0 +1,74 @@
+number n1 = 3
+word nToWord1 = n1.ConvertToWord()
+number n2 = 2
+word nToWord2 = n2.ConvertToWord()
+number n3 = 3
+word nToWord3 = n3.ConvertToWord()
+
+number recursion(number num)
+do
+    number ret
+    if (num == 0)
+    do
+        ret = 0
+    done
+    else if (num == 1)
+    do
+        ret = 1
+    done
+    else
+        ret = recursion(num - 1) + recursion(num - 2)
+    return ret
+done
+
+number fibResRec = recursion(n1)
+word resRecursive = fibResRec.ConvertToWord()
+PrintLine("Fibonacci Recursive result " + resRecursive + " when number is " + nToWord1)
+
+number fibResRecSec = recursion(n2)
+word resRecursiveSec = fibResRecSec.ConvertToWord()
+PrintLine("Fibonacci Recursive result " + resRecursiveSec + " when number is " + nToWord2)
+
+number fibResRecThird = recursion(n3)
+word resRecursiveThird = fibResRecThird.ConvertToWord()
+PrintLine("Fibonacci Recursive result " + resRecursiveThird + " when number is " + nToWord3)
+
+number fibonacci2(number n)
+do
+        number a = 0
+        number b = 1
+        for (number i = 0; i < n; i = i + 1)
+        do
+            number temp = a
+            a = b
+            b = temp + b
+        done
+        return a
+done
+
+number fibResLoop = fibonacci2(n1)
+word resLoop = fibResLoop.ConvertToWord()
+PrintLine("Fibonacci Loop result " + resLoop + " when number is " + nToWord1)
+
+number fibResLoopSec = fibonacci2(n2)
+word resLoopSec = fibResLoopSec.ConvertToWord()
+PrintLine("Fibonacci Loop result " + resLoopSec + " when number is " + nToWord2)
+
+number fibResLoopThird = fibonacci2(n3)
+word resLoopThird = fibResLoopThird.ConvertToWord()
+PrintLine("Fibonacci Loop result " + resLoopThird + " when number is " + nToWord3)
+
+
+// naudojamas kodo pavizdys kuris buvo aprasytas pradzioje
+number ApskaiciuotiSkaiciu()				//Funkcijos deklaracija
+do							//Pradedama funkcijos veikla
+		number skaicius = 10				//skaicius = 10
+		skaicius = skaicius * 5			//skaicius = 50
+		number senasSk = skaicius.Previous()	//senasSk = 10
+		senasSk = skaicius + senasSk			//senasSk = 60
+		return senasSk					//Gražinama senasSk reikšmė
+done
+
+number num = ApskaiciuotiSkaiciu()
+word answNum = num.ConvertToWord()
+PrintLine("Example function Result: " + answNum)
