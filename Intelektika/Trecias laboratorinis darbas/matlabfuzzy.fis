@@ -1,0 +1,61 @@
+[System]
+Name='matlabfuzzy'
+Type='mamdani'
+Version=2.0
+NumInputs=3
+NumOutputs=1
+NumRules=14
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='mom'
+
+[Input1]
+Name='input1'
+Range=[0 30]
+NumMFs=3
+MF1='dist_lo':'trapmf',[0 0 7 12]
+MF2='dist_md':'trapmf',[8 11 19 24]
+MF3='dist_ki':'trapmf',[20 22 30 30]
+
+[Input2]
+Name='input2'
+Range=[0 23]
+NumMFs=4
+MF1='hour_nig':'trapmf',[0 0 6 8]
+MF2='hour_mor':'trapmf',[6 9 10 12]
+MF3='hour_day':'trapmf',[10 12 17 19]
+MF4='hour_eve':'trapmf',[17 20 23 23]
+
+[Input3]
+Name='input3'
+Range=[1 20]
+NumMFs=3
+MF1='stop_lo':'trapmf',[1 1 4 6]
+MF2='stop_md':'trimf',[4 10 16]
+MF3='stop_hi':'trapmf',[14 16 20 20]
+
+[Output1]
+Name='output1'
+Range=[1 65]
+NumMFs=3
+MF1='dur_lo':'trapmf',[1 1 17 30]
+MF2='dur_md':'trimf',[20 35 50]
+MF3='dur_hi':'trapmf',[40 55 65 65]
+
+[Rules]
+3 0 3, 3 (1) : 2
+1 1 0, 1 (1) : 1
+2 0 3, 3 (1) : 1
+1 0 1, 1 (1) : 1
+2 0 2, 2 (1) : 2
+0 2 3, 3 (1) : 2
+3 3 0, 2 (1) : 1
+2 0 3, 3 (1) : 1
+0 1 1, 1 (1) : 2
+2 0 1, 2 (1) : 1
+3 0 2, 3 (1) : 1
+1 3 0, 1 (1) : 1
+1 3 0, 1 (1) : 1
+0 3 2, 1 (1) : 1
