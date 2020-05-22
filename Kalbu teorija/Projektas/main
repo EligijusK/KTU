@@ -69,6 +69,7 @@ do							//Pradedama funkcijos veikla
 		return senasSk					//Gražinama senasSk reikšmė
 done
 
+
 number num = ApskaiciuotiSkaiciu()
 word answNum = num.ConvertToWord()
 PrintLine("Example function Result: " + answNum)

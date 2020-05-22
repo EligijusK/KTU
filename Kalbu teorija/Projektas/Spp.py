@@ -342,6 +342,7 @@ class SppExecute:
 
         if (node[0] == 'while_loop'):
             variables = self.env.copy()
+            variablesBack = self.prevEnv.copy()
             condition = self.walkTree(node[1])
             if not isinstance(condition, bool):
                 self.error("While loop condition must be of type 'bool'. Line: %d" % node[3])
@@ -684,7 +685,6 @@ def main():
             SppExecute(tree, env, prevEnv)
 
     except (IndexError, FileNotFoundError) as e:
-
         while (choice == None or (choice.upper() != 'F') & (choice.upper() != 'L') & (choice.upper() != 'Q')):
             choice = input("Input file (F), command lines (L) or quit (Q)?: ")
         if choice.upper() == 'F':
