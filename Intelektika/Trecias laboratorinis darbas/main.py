@@ -232,3 +232,5 @@ defuzz_mom = MOM(x_dur, aggregated)
 
 print("Centroid metodas - siūloma alga programuotojui: " + str(defuzz_centroid))
 print("Bisector metodas - siūloma alga programuotojui: " + str(defuzz_mom))
+
+
