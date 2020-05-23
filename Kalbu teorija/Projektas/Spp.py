@@ -414,6 +414,23 @@ class SppExecute:
                 print(value, end='')
                 return None
 
+            elif node[1] == 'PrintToFile':
+                if length != 2:
+                    self.error("Wrong number of arguments for function 'printToFile' (must be 2). Line: %d" % node[3])
+                file = self.walkTree(vals[0])
+                if not isinstance(file, str):
+                    self.error("First argument of 'printToFile' must be type 'string'. Line: %d" % node[3])
+                try:
+                    f = open(self.walkTree(vals[0]), "w+")
+                    value = self.walkTree(vals[1])
+                    if not isinstance(value, str):
+                        self.error("First argument in function 'print' must be of type 'string'. Line: %d" % node[3])
+                    f.write(value)
+                    f.close()
+                except FileNotFoundError:
+                    self.error("File not found in function printToFile. Line: %d" % node[3])
+                return None
+
             if node[1] == 'ConvertToWord':
                 if length != 1:
                     self.error("Wrong number of arguments for function 'ConvertToWord'. Line: %d" % node[3])

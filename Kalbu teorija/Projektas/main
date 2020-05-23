@@ -1,4 +1,4 @@
-number n1 = 3
+number n1 = 7
 word nToWord1 = n1.ConvertToWord()
 number n2 = 2
 word nToWord2 = n2.ConvertToWord()
@@ -68,7 +68,6 @@ do							//Pradedama funkcijos veikla
 		senasSk = skaicius + senasSk			//senasSk = 60
 		return senasSk					//Gražinama senasSk reikšmė
 done
-
 
 number num = ApskaiciuotiSkaiciu()
 word answNum = num.ConvertToWord()
