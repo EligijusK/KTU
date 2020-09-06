@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="dfedce92-9740-431c-9cd6-bcd1074dafda" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="JupyterTrust" id="add2baf2-c52a-4567-a4dc-d970fc95c734" />
+  <component name="ProjectId" id="1Xu2UBtq5E6uOGuPK3aQDPyZIGA" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Antras laboratorinis" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+  </component>
+  <component name="RunManager">
+    <configuration name="PirmasLaboratorinis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Pirmas laboratorinis darbas" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PirmasLaboratorinis.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.PirmasLaboratorinis" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dfedce92-9740-431c-9cd6-bcd1074dafda" name="Default Changelist" comment="" />
+      <created>1581881671860</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1581881671860</updated>
+      <workItem from="1581881675667" duration="9322000" />
+      <workItem from="1581968725353" duration="7389000" />
+      <workItem from="1582022411786" duration="10000" />
+      <workItem from="1582056410193" duration="2136000" />
+      <workItem from="1582058663650" duration="516000" />
+      <workItem from="1582059706250" duration="4968000" />
+      <workItem from="1582741376541" duration="405000" />
+      <workItem from="1582741790875" duration="14018000" />
+      <workItem from="1582832349374" duration="3428000" />
+      <workItem from="1583089556498" duration="15626000" />
+      <workItem from="1583135556987" duration="11672000" />
+      <workItem from="1583231871819" duration="25598000" />
+      <workItem from="1583317143909" duration="238000" />
+      <workItem from="1584030399428" duration="18000" />
+      <workItem from="1589984321518" duration="771000" />
+      <workItem from="1590483381412" duration="236000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="519" y="44" key="#PirmasLaboratorinis" timestamp="1581883300163">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="519" y="44" key="#PirmasLaboratorinis/0.0.1600.860@0.0.1600.860" timestamp="1581883300163" />
+    <state width="1693" height="466" key="DebuggerActiveHint" timestamp="1589984496856">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1693" height="466" key="DebuggerActiveHint/0.0.2560.1040@0.0.2560.1040" timestamp="1589984496856" />
+    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1584030415878">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1584030415878" />
+    <state width="1258" height="348" key="GridCell.Tab.0.bottom" timestamp="1589986362067">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1557" height="222" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1583317381037" />
+    <state width="1258" height="348" key="GridCell.Tab.0.bottom/0.0.2560.1040@0.0.2560.1040" timestamp="1589986362067" />
+    <state width="1258" height="348" key="GridCell.Tab.0.center" timestamp="1589986362067">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1557" height="222" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1583317381037" />
+    <state width="1258" height="348" key="GridCell.Tab.0.center/0.0.2560.1040@0.0.2560.1040" timestamp="1589986362067" />
+    <state width="1258" height="348" key="GridCell.Tab.0.left" timestamp="1589986362067">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1557" height="222" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1583317381037" />
+    <state width="1258" height="348" key="GridCell.Tab.0.left/0.0.2560.1040@0.0.2560.1040" timestamp="1589986362067" />
+    <state width="1258" height="348" key="GridCell.Tab.0.right" timestamp="1589986362067">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1557" height="222" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1583317381037" />
+    <state width="1258" height="348" key="GridCell.Tab.0.right/0.0.2560.1040@0.0.2560.1040" timestamp="1589986362067" />
+    <state width="1258" height="348" key="GridCell.Tab.1.bottom" timestamp="1589986362067">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1557" height="276" key="GridCell.Tab.1.bottom/0.0.1600.860@0.0.1600.860" timestamp="1583105718245" />
+    <state width="1258" height="348" key="GridCell.Tab.1.bottom/0.0.2560.1040@0.0.2560.1040" timestamp="1589986362067" />
+    <state width="1258" height="348" key="GridCell.Tab.1.center" timestamp="1589986362067">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1557" height="276" key="GridCell.Tab.1.center/0.0.1600.860@0.0.1600.860" timestamp="1583105718245" />
+    <state width="1258" height="348" key="GridCell.Tab.1.center/0.0.2560.1040@0.0.2560.1040" timestamp="1589986362067" />
+    <state width="1258" height="348" key="GridCell.Tab.1.left" timestamp="1589986362067">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1557" height="276" key="GridCell.Tab.1.left/0.0.1600.860@0.0.1600.860" timestamp="1583105718245" />
+    <state width="1258" height="348" key="GridCell.Tab.1.left/0.0.2560.1040@0.0.2560.1040" timestamp="1589986362067" />
+    <state width="1258" height="348" key="GridCell.Tab.1.right" timestamp="1589986362067">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1557" height="276" key="GridCell.Tab.1.right/0.0.1600.860@0.0.1600.860" timestamp="1583105718245" />
+    <state width="1258" height="348" key="GridCell.Tab.1.right/0.0.2560.1040@0.0.2560.1040" timestamp="1589986362067" />
+    <state x="482" y="87" key="SettingsEditor" timestamp="1590483613762">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="301" y="72" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1581883627393" />
+    <state x="482" y="87" key="SettingsEditor/0.0.2560.1040@0.0.2560.1040" timestamp="1590483613762" />
+    <state width="1288" height="528" key="XDebugger.FullValuePopup" timestamp="1589984413461">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1288" height="528" key="XDebugger.FullValuePopup/0.0.2560.1040@0.0.2560.1040" timestamp="1589984413461" />
+    <state x="794" y="307" key="com.intellij.ide.util.TipDialog" timestamp="1590483381703">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="496" y="254" key="com.intellij.ide.util.TipDialog/0.0.1600.860@0.0.1600.860" timestamp="1584030399629" />
+    <state x="794" y="307" key="com.intellij.ide.util.TipDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1590483381703" />
+    <state x="449" y="45" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1583241347832">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="449" y="45" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1600.860@0.0.1600.860" timestamp="1583241347832" />
+    <state x="741" y="218" width="1076" height="820" key="search.everywhere.popup" timestamp="1590483432467">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1581885946937" />
+    <state x="741" y="218" width="1076" height="820" key="search.everywhere.popup/0.0.2560.1040@0.0.2560.1040" timestamp="1590483432467" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Pirmas_laboratorinis_darbas$PirmasLaboratorinis.coverage" NAME="PirmasLaboratorinis Coverage Results" MODIFIED="1589984364225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
