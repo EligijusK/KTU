@@ -1,0 +1,8 @@
+﻿  cl : Command line warning D9035 : option 'Gm' has been deprecated and will be removed in a future release
+  stdafx.cpp
+  cl : Command line warning D9035 : option 'Gm' has been deprecated and will be removed in a future release
+  Eikon.cpp
+C:\Users\Yoga 530\OneDrive - Kaunas University of Technology\Doktorantūra\T120M151 Informacinių technologijų saugos metodai\Laboratoriniai\Eikon\Eikon_clean\Eikon\Eikon\Eikon.cpp(238,1): warning C4996:  'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(1274): message :  see declaration of 'scanf'
+Eikon.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
+  Eikon.vcxproj -> C:\Users\Yoga 530\OneDrive - Kaunas University of Technology\Doktorantūra\T120M151 Informacinių technologijų saugos metodai\Laboratoriniai\Eikon\Eikon_clean\Eikon\Debug\Eikon.exe
