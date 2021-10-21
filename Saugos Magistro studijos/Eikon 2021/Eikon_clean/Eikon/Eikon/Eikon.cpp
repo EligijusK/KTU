@@ -232,7 +232,7 @@ int _tmain(int argc, _TCHAR* argv[])
         if(res == ABS_STATUS_OK) {
             printf("Naujas antspaudo sablonas itrauktas i saraso elementa Nr.%d\n", i);
         } else {
-            klaida(res);
+            printf("Ivyko klaida bandant itraukti pirsto antspauda Nr.%d\n", i);
         }
     }
 
@@ -247,7 +247,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
     int count = 0;
     ABS_BIR* tmp_tset[TSET_SIZE]; int tmp_slot[TSET_SIZE];/* Sukurti nauja laikina sablonu masyva */
-    for(i = 0; i < TSET_SIZE; i++) {
+    for(int i = 0; i < TSET_SIZE; i++) {
             if(tset[i] != NULL) {
                 tmp_tset[count] = tset[i];
                 tmp_slot[count] = i;

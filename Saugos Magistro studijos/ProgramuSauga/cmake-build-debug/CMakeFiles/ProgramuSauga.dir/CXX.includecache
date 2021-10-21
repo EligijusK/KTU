@@ -6,13 +6,15 @@
 
 #IncludeRegexTransform: 
 
-/Users/eligijus/CLionProjects/ProgramuSauga/main.cpp
+F:/KTU/Saugos Magistro studijos/ProgramuSauga/main.cpp
 iostream
 -
 fstream
 -
 sys/stat.h
 -
-sys/types.h
+string
+-
+iomanip
 -
 

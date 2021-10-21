@@ -1,0 +1,20 @@
+
+;cpp:CommentedCode"Remove the commented out code.(“Îóğ
+L	cpp:S5945	"2Use "std::string" instead of a C-style char array.(¾åÔıüÿÿÿÿ
+G	cpp:S5945"2Use "std::string" instead of a C-style char array.(ùÍ‘À
+L	cpp:S5945"2Use "std::string" instead of a C-style char array.(£å¬Áúÿÿÿÿ
+Bcpp:S106".Replace this usage of "std::cout" by a logger.(Óˆ
+Bcpp:S106".Replace this usage of "std::cout" by a logger.(Óˆ
+Gcpp:S106".Replace this usage of "std::cout" by a logger.(¸˜üŠúÿÿÿÿ
+Bcpp:S106".Replace this usage of "std::cout" by a logger.(“×—Ö
+Gcpp:S106".Replace this usage of "std::cout" by a logger.(äş‚Êıÿÿÿÿ
+‚cpp:S859"hC-style cast removing const qualification from the type of a pointer may lead to an undefined behaviour.(²‰Å"8¸¶Ü¦Ê/
+scpp:S995&"SMake this parameter a pointer-to-const. The current type of "fileName" is "char *".(»ç‚üøÿÿÿÿ8³”Ù¦Ê/
+Bcpp:S106-".Replace this usage of "std::cout" by a logger.(Ä óõ
+G	cpp:S59451"2Use "std::string" instead of a C-style char array.(Óáÿø
+L	cpp:S59453"2Use "std::string" instead of a C-style char array.(ÅÑ´øÿÿÿÿ
+G	cpp:S59455"2Use "std::string" instead of a C-style char array.(Œ‰È‰
+Gcpp:S1067".Replace this usage of "std::cout" by a logger.(§¦‰üÿÿÿÿ
+Bcpp:S1068".Replace this usage of "std::cout" by a logger.(ıŠ²
+Gcpp:S1069".Replace this usage of "std::cout" by a logger.(ÆÏÄïøÿÿÿÿ
+Bcpp:S106:".Replace this usage of "std::cout" by a logger.(³áŞ

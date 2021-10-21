@@ -1,7 +1,9 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/ProgramuSauga.dir/main.cpp.o"
-  "ProgramuSauga"
+  "CMakeFiles/ProgramuSauga.dir/main.cpp.obj"
+  "ProgramuSauga.exe"
+  "ProgramuSauga.exe.manifest"
   "ProgramuSauga.pdb"
+  "libProgramuSauga.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.
