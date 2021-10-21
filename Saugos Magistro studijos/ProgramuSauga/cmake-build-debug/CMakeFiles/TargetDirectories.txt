@@ -1,0 +1,3 @@
+/Users/eligijus/CLionProjects/ProgramuSauga/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/eligijus/CLionProjects/ProgramuSauga/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/eligijus/CLionProjects/ProgramuSauga/cmake-build-debug/CMakeFiles/ProgramuSauga.dir

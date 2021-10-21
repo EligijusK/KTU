@@ -1,0 +1,1 @@
+Sveiki, cia yra laboratonis darbas bufferio perpildymas. bufferio perpildymas ivyksta kai yra aprasytas limituoto kiekio masyvas i kuri yra nuskaitoma nelimituoto kiekio tekstas. ggggggggggaaaaaaaaggggggggg

@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/eligijus/CLionProjects/ProgramuSauga/main.cpp
+iostream
+-
+fstream
+-
+sys/stat.h
+-
+sys/types.h
+-
+
