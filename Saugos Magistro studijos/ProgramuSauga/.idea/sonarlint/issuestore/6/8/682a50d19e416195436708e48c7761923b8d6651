@@ -1,0 +1,4 @@
+
+Icpp:S106".Replace this usage of "std::cout" by a logger.(’¾û8™Ôİ½Ê/
+S	cpp:S5945+"2Use "std::string" instead of a C-style char array.(“¡Ú½üÿÿÿÿ8ÁŞ½Ê/
+N	cpp:S5945-"2Use "std::string" instead of a C-style char array.(‚ºØÍ8ÁŞ½Ê/
