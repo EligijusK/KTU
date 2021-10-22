@@ -6,15 +6,11 @@
 
 #IncludeRegexTransform: 
 
-F:/KTU/Saugos Magistro studijos/ProgramuSauga/main.cpp
+C:/Users/Eligijus/Desktop/KTU/Saugos Magistro studijos/ProgramuSauga/main.cpp
 iostream
 -
 fstream
 -
-sys/stat.h
--
 string
--
-iomanip
 -
 

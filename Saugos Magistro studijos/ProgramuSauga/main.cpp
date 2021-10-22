@@ -2,58 +2,65 @@
 
 #include <iostream>
 #include <fstream>
-#include <sys/stat.h>
 #include <string>
-#include <iomanip>
 
-void ReadFromFile(char fileName[]);
+void ReadFromFile(const char* fileName, std::ostream& log_stream);
+void ReadFromFileUsingStrings(const char* fileName, std::ostream& log_stream);
+
+const int value = 196; //file char count
 
 int main() {
-    char Last_name[5];
-    char Answer[3];
+    std::ostream& log_stream = std::cout;
+    std::string Last_name;
     std::string Last_name_Without_Overflow;
-//    char FileData[207];
 
-        // Block of code to tr
-        std::cout << "Enter your name first time: " << std::endl;
-        std::cin >> Last_name_Without_Overflow;
-        std::cout << "Enter your name first time: " << std::endl;
-        std::cin >> Last_name;
-        std::cout << "First read result: " << Last_name_Without_Overflow << " Second read result: " << Last_name << std::endl;
-        std::cout << "size comparison: " << Last_name_Without_Overflow.size() << " vs " << sizeof(Last_name) << std::endl;
+    log_stream << "Enter your name first time: " << std::endl;
+    std::cin >> Last_name_Without_Overflow;
+    log_stream << "Enter your name first time: " << std::endl;
+    std::cin >> Last_name;
+    log_stream << "First read result: " << Last_name_Without_Overflow << " Second read result: " << Last_name << std::endl;
+    log_stream << "size comparison: " << Last_name_Without_Overflow.size() << " vs " << sizeof(Last_name) << std::endl;
 
-    std::cout << "If u want to read file pleas write Yes if you want to quit program pleas write No" << std::endl;
-    std::cin >> Answer;
-
-
-    if(strcmp(Answer, "Yes") == 0)
-    {
-        ReadFromFile((char*)"../FileToRead.txt");
-    }
+    ReadFromFile("FileToRead.txt", log_stream);
+    log_stream << std::endl;
+    ReadFromFileUsingStrings("FileToRead.txt", log_stream);
 
     return 0;
 }
 
 
-void ReadFromFile(char* fileName)
+void ReadFromFile(const char* fileName, std::ostream& log_stream)
 {
     std::fstream newfile;
 
     newfile.open(fileName);
     if (!newfile.is_open())
     {
-        std::cout << "error opening file" << std::endl;
+        log_stream << "error opening file" << std::endl;
     }
-    struct stat statbuf;
-    stat( fileName, &statbuf );
-    char achData[statbuf.st_size-10];
-    newfile.get(achData, statbuf.st_size);
-    char achDataCopied[170];
-    strcpy(achDataCopied, achData);
-    char dataCopied[170];
-    strncpy(dataCopied, achData, 170);
-    std::cout << "size comparison: " << statbuf.st_size << " vs " << sizeof(achDataCopied) << " vs " <<  sizeof(dataCopied) << std::endl;
-    std::cout << "text comparison: " << std::endl;
-    std::cout << achDataCopied << std::endl;
-    std::cout << dataCopied << std::endl;
+
+    const int size = 171;
+    char achData[value];
+    newfile.get(achData, value-1);
+    char dataCopied[size];
+    strncpy_s(dataCopied, achData, size-1);
+    log_stream << "text comparison: " << std::endl;
+
+    log_stream << achData << std::endl;
+    log_stream << dataCopied << std::endl;
+}
+
+void ReadFromFileUsingStrings(const char* fileName, std::ostream& log_stream)
+{
+    std::ifstream in(fileName);
+    std::string contents((std::istreambuf_iterator<char>(in)),
+                         std::istreambuf_iterator<char>());
+
+    std::string achData;
+    achData = contents;
+    contents[0] = 'a';
+
+    log_stream << "text comparison: " << std::endl;
+    log_stream << achData << std::endl;
+    log_stream << contents << std::endl;
 }

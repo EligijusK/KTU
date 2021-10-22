@@ -1,3 +1,3 @@
-F:/KTU/Saugos Magistro studijos/ProgramuSauga/cmake-build-debug/CMakeFiles/ProgramuSauga.dir
-F:/KTU/Saugos Magistro studijos/ProgramuSauga/cmake-build-debug/CMakeFiles/edit_cache.dir
-F:/KTU/Saugos Magistro studijos/ProgramuSauga/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Eligijus/Desktop/KTU/Saugos Magistro studijos/ProgramuSauga/cmake-build-debug/CMakeFiles/ProgramuSauga.dir
+C:/Users/Eligijus/Desktop/KTU/Saugos Magistro studijos/ProgramuSauga/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Eligijus/Desktop/KTU/Saugos Magistro studijos/ProgramuSauga/cmake-build-debug/CMakeFiles/rebuild_cache.dir
