@@ -1,0 +1,192 @@
+/* 
+print version of page - hide navigation type divs.
+Bryan Gullan
+2005-03-30
+*/
+
+* {
+	float: none !important;
+	margin: 0;
+	padding: 0;
+	width: auto;
+	position:static !important;
+	text-indent: 0;
+	overflow:visible !important;
+}
+
+body {
+        text-align: left;
+}
+
+.logos li {
+	float: left;
+	list-style-type: none;	
+}
+
+#content {
+	/*clear: left;*/
+}
+
+#header form, #primary-nav, .find-it, #quick-links, #access-links, #footer, #secondary-content div, span.mainSection, ul#secondary-nav, #tertiary-content div, .greybox, .homepage-doublecolumn, #breadcrumb, #content-extras, img.banner {
+        float: none;
+	display: none;
+}
+
+h1, h2, h3, h4, p {
+	margin: 15px 0;
+}
+
+#logo img {
+	border:10px solid #002147;
+	background-color: #002147;
+}
+
+div#header a.logo-oxweb img {
+	border:none;
+}
+
+.university-logo img {
+	/*border:10px solid #002147;*/
+}
+
+#header, #header-wrapper, #primary-nav {
+	height:5em;
+	min-height:115px;
+	padding-top:0;
+	background-color:#fff;
+	background-image:none;
+}
+
+#primary-content {
+	width: 80%;
+}
+
+#primary-content div.callout {
+	width: 100%;
+}
+
+.print-both #primary-content, .print-left #primary-content, .print-right #primary-content {
+        position: static !important;
+        width: 420px;
+        top: 130px;
+		float:left !important;
+		margin-left: 0;
+}
+
+.print-both #primary-content, .print-left #primary-content {
+        left: 260px;
+}
+
+.print-both #secondary-content, .print-left #secondary-content {
+        width: 200px;
+		float:left !important;
+}
+        
+        .print-both #secondary-content div.image-caption, .print-left #secondary-content div.image-caption {
+                display: block;
+                width: 100%;
+                top: 0;
+                margin-top: 0;
+        }
+
+                .print-both #secondary-content div.image-caption img, .print-left #secondary-content div.image-caption img {
+                        width: 100% !important;
+                }
+
+.print-both #tertiary-content {
+		clear:both;
+        width: 100%;
+		border-top:1px solid #CCCCCC;
+}
+
+        .print-both #tertiary-content div.image-caption {
+                display: block;
+                position: relative !important;
+        }
+        
+                .print-both #tertiary-content div.image-caption p {
+                        left: 200px;
+                        width: 400px;
+                        position: static !important;
+                        top: 0;
+                        margin: 0 0 10px 0;
+                }
+
+                .print-both #tertiary-content div.image-caption img {
+                        width: auto;
+                }
+                
+.print-right #tertiary-content {
+        width: 200px;
+		float:left !important;
+        position: static !important;
+        left: 480px;
+}
+        
+        .print-right #tertiary-content div.image-caption {
+                display: block;
+                margin-top: 0;
+                top: 0;
+        }
+			.print-right #tertiary-content div.image-caption p {
+				
+			}
+        
+        .print-right #tertiary-content div.image-caption img {
+                width: auto;
+        }
+        
+#wrapper, #content{
+        margin: 0;
+        padding: 0;
+}
+
+#alumni-wrapper * {
+	float: none !important;
+	width: auto !important;
+	border-left: 0 !important;
+	border-right: 0 !important;
+}
+
+        #alumni-wrapper * h2, #alumni-wrapper * h3, #alumni-wrapper * h3 a {
+                color: #002B5F !important;
+                background: none !important;
+                text-indent: 0 !important;
+                border: 0 !important;
+        }
+
+        #alumni-wrapper .column-left .callout {
+                border: 0;
+        }
+
+        #alumni-wrapper .column-right .upcoming {
+                margin: 30px 0;
+        }
+
+                #alumni-wrapper .column-right .upcoming ul, #alumni-wrapper .column-right .upcoming p {
+                        margin-left: 20px;
+                }
+
+                #alumni-wrapper .column-right .upcoming div.graphicdatebox {
+                        border: 0;
+                }
+
+        #alumni-wrapper #tabbed {
+                border: 1px solid #b1b1b1;
+        }
+
+                #alumni-wrapper #tabbed .tabbed-content {
+                        border: 0;
+                }
+
+        #alumni-wrapper #tabbed-nav li.benefits {
+                padding-left: 10px;
+        }
+
+div.fact-browse {
+	opacity: 1 !important;
+}
+
+#primary-content div.unique * {
+	background-color: white !important;
+}

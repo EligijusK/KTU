@@ -1,0 +1,204 @@
+/*
+divs within the header, including top navigation menu
+Bryan Gullan
+2005-03-30
+*/
+
+/* top tabs setup -----------------------------------------------*/
+#primary-nav {
+	float: left;
+	clear: both;
+	padding:0px;
+	font-size: 1.1em;
+	color:white;
+	width: 100%;
+	background-color:transparent;
+}
+
+#primary-nav ul {
+	z-index: 49 !important;
+}
+	
+	#primary-nav li {
+		float: left;
+		padding-right: 0;
+		height: 25px;
+		position: relative;
+	}
+		
+		#primary-nav li a {
+			color: white;
+			text-decoration:none;
+			height: 23px;
+			position: relative;
+			outline:none;
+		}
+		
+			#primary-nav li ul a {
+				color: #000;
+			}
+
+#nav {
+	padding-top: 42px;
+}
+
+	#nav li a {
+		text-indent: -5000px;
+	}
+	
+	#nav-admissions {
+		width:11.5%;
+	}
+		#nav-admissions a {
+			background: url('/display_images/nav/admissions.gif') top left no-repeat;
+			width: 82px;
+		}
+	#nav-divisions {
+		width: 9%;
+	}
+		#nav-divisions a {
+			background: url('/display_images/nav/divisions.gif') top left no-repeat;
+			width: 65px;
+		}
+	#nav-colleges {
+		width: 9%;
+	}
+		#nav-colleges a {
+			background: url('/display_images/nav/colleges.gif') top center no-repeat;
+			width: 64px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	#nav-visitorsandfriends {
+		width: 17%;
+	}
+		#nav-visitorsandfriends a {
+			background: url('/display_images/nav/visitorsandfriends.gif') top center no-repeat;
+			width: 126px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	#nav-international {
+		width: 14%;
+	}
+		#nav-international a {
+			background: url('/display_images/nav/international.gif') top center no-repeat;
+			width: 99px;
+			margin-left: auto;
+			margin-right: auto;
+		}	
+	#nav-research {
+		width: 10%;
+	}
+		#nav-research a {
+			background: url('/display_images/nav/research.gif') top center no-repeat;
+			width: 63px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	#nav-enterprise {
+		width: 9%;
+	}
+		#nav-enterprise a {
+			background: url('/display_images/nav/enterprise.gif') top right no-repeat;
+			width: 72px;
+			float:right;
+		}
+	#nav-abouttheuniversity {
+		width: 20%;
+		padding-right:0;
+	}
+		#nav-abouttheuniversity a {
+			background: url('/display_images/nav/abouttheuniversity.gif') top right no-repeat;
+			width: 148px;
+			float:right;
+		}	
+		
+		#nav a {
+			display:block;
+			margin-bottom:6px;
+		}
+		#nav li:hover a, #nav li.over a {
+			border-bottom: 6px solid #fff;
+			margin-bottom:0;
+		}
+		#nav ul a {
+			margin-bottom:0;
+		}
+		#nav ul a:hover {
+			border-bottom: none;
+		}
+	
+
+/* setting up the submenus -----------------------------------------------*/
+
+#nav ul {
+	position: relative;
+	display: none;
+	top: -2px;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;z-index: 50 !important;
+}
+
+#nav-admissions ul {width: 82px; float: left;}
+#nav-divisions ul {width: 65px; float: left;}
+#nav-colleges ul {width: 64px;}
+#nav-visitorsandfriends ul {width: 126px;}
+#nav-international ul {width: 99px;}
+#nav-research ul {width: 63px;}
+#nav-enterprise ul {width: 72px; float: right;}
+#nav-abouttheuniversity ul {width: 148px;  float: right;}
+
+#nav ul li {
+	position: relative;
+	display: block;
+	z-index: 50 !important;
+	padding: 0;	margin: 0;
+	margin-top: 0px;
+	font-size: 0.9em;
+	height: auto;
+}
+
+#nav ul li a:link,
+#nav ul li a:visited,
+#nav ul li a:hover,
+#nav ul li a:active {
+	display: block;
+	border: 1px solid #BFBFBF;
+	border-width:0 1px 1px 1px;
+	color: #666;
+	width: 165px;
+	text-indent: 0;
+	padding: 4px 10px 4px 14px;
+	line-height: 130%;
+	height: auto;
+	background: #fff url(/display_images/icons/bullet_arrow.gif) 5px 8.5px no-repeat;
+}
+#nav #nav-abouttheuniversity ul a {
+	width:126px;
+}
+#nav ul li a:hover {
+	background-color: #002147;
+	color: #fff;
+	background-image: url(/display_images/icons/bullet_arrow_white.gif);
+}
+
+/*
+#nav li > ul {
+	top: 25px;
+	left: auto;
+}
+*/
+#primary-nav li:hover ul, #primary-nav li.over ul {
+	display: block;
+}
+
+
+/*width and padidng in ie*/
+/*
+ul#nav li ul li a:hover,
+ul#nav li ul li a:active {
+background-color:#D6E2EA
+}
+*/

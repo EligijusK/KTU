@@ -1,0 +1,110 @@
+/* 
+HTML definitions
+Bryan Gullan
+2007-08
+*/
+
+* {
+	 margin: 0;
+	 padding: 0;
+}
+
+ul {
+	list-style: none;
+}
+
+ol {
+	margin:0;
+	padding:0;
+}
+
+a, a:link, a:visited {
+	color: #002d62;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #476A8F;
+	text-decoration: underline;
+}
+
+p {
+	margin: 0;
+	padding: 0;
+	color: #666;
+}
+
+label {
+	display:block;
+	margin-bottom:2px;
+}
+
+input,select,textarea{
+	font-family: Helvetica, Arial, sans-serif;
+	font-size:1em;
+}
+
+input {
+	vertical-align: middle;
+}
+
+#primary-content input, #primary-content select, #primary-content textarea {
+	margin-bottom: 9px;
+}
+
+fieldset {
+	margin:10px 0px;
+	border: 1px solid #e7e7e7;
+}
+
+legend {
+	font-size: 1.05em;
+	font-weight:bold;
+}
+
+
+
+h1, h2, h3, h4, h5{
+	color: #002b5f;
+}
+
+h1,h2,h3, h4, h5 {
+	font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+}
+
+/*
+h1{
+	font-size:1.3em;
+	font-weight:bold;
+}
+*/
+h2{
+	font-size:1.3em;
+	font-weight:bold;
+	margin: 10px 0;
+	/*letter-spacing:-1px;*/
+}
+
+h3{
+	font-size:1.15em;
+	font-weight:bold;
+}
+
+h4{
+	font-size:1.05em;
+	font-weight:bold;
+}
+
+h5{
+	font-size:1em;
+	font-weight:normal;
+}
+
+pre {
+	font-family: inherit !important;
+	font-size: inherit !important;
+}
+
+img, a img{
+	border:0;
+}

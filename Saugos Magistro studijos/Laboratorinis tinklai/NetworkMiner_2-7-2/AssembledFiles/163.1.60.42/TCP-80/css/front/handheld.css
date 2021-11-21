@@ -1,0 +1,15 @@
+/*
+@description General tweaks for handheld devices
+
+@author	Bryan Gullan
+@created 2007-08
+
+@dependsOn 
+@basedOn 
+
+@modified
+*/
+
+#wrapper {
+	min-width: 50px;
+}

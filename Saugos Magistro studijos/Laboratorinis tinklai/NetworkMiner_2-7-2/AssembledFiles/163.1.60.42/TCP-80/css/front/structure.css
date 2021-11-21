@@ -1,0 +1,311 @@
+/* 
+Page layout CSS
+Bryan Gullan
+2007-08
+*/
+
+
+/* HEADER */
+
+#wrapper{
+	min-width: 772px;
+	max-width:940px;
+	width: 97%;
+	overflow: hidden;
+	text-align:left;
+	margin: 0 auto 15px auto;
+	clear:both;
+}
+body.layout-popup #wrapper{
+	min-width:0px;
+}
+
+#header-wrapper{
+	width:100%;
+	min-width: 772px;
+	min-height:172px;
+	height: 13em;
+	text-align:left;
+	margin-bottom:5px;
+	background: #002147 url('/display_images/header_gradient.gif') bottom left repeat-x;
+	border-bottom: 4px solid #fff;
+	z-index:2;
+	padding-top:20px;
+}
+
+#header {
+	min-width: 772px;
+	max-width:940px;
+	width: 97%;
+	background-color: transparent;
+	text-align:left;
+	margin:  0px auto 0 auto;
+	position: relative;
+	z-index:20;
+}
+	
+	#access-links {
+		position: absolute;
+		left: -1000em;
+	}
+
+	#logo {
+		padding-right: 10px;
+	}
+	
+	.logos li {
+		margin-top: 20px;
+		float: left;	
+	}
+	
+	#header div.find-it {
+		float:right;
+		margin-top:20px;
+		padding:1px 7px 1px 1px;
+		width:500px !important;
+	}
+	
+	#header div.find-it:hover {
+		background:#001c3d;
+		border:1px dashed #2e4c6f;
+		padding:0px 6px 0px 0px;
+	}
+	
+	#header form {
+		float: left;
+		margin-top: 0px;
+	}
+		#header label {
+			/*font-size: 0.9em;*/
+			color: white; /*#C2D7EF; | #9cb5d3 */
+			line-height: 1em;
+			text-indent:-5000px;
+			margin:0 10px 0 4px;
+		}
+			#header input.radio{
+				margin:0 4px 0 0;
+				padding:0;
+				overflow:hidden;
+				line-height:10px;
+				outline:none;
+			}
+			#header label.radio {
+				text-indent:0;				
+				padding:0 3px 0 0; 
+				margin:0;
+				position:relative;
+				line-height:2em;
+			}
+		#header select {
+			width:225px;
+			margin-right:10px;
+			font-size:0.9em;
+			color: #444;
+			border-width:1px;
+			border-color:#888D95 #C8C8C4 #E3E3E3 #C8C8C4;
+			border-style:solid;
+			padding:2px;
+			background:white url(/display_images/field_bg_shadow.gif) 0 0 no-repeat;
+			float:left;
+		}
+		#searchform{
+			width:180px;
+			overflow:visible;
+			position:relative;
+			height:65px;
+		}
+		#searchinput {
+			width: 110px;
+			margin-right:10px;
+			font-size:0.9em;
+			color: #444;
+			border-width:1px;
+			border-color:#888D95 #C8C8C4 #E3E3E3 #C8C8C4;
+			border-style:solid;
+			background:white url(/display_images/field_bg_shadow.gif) 0 0 no-repeat;
+			padding:2px;
+			float:left;
+		}
+		.searchbutton{
+			float:left;
+		}
+		/* #searchform fieldset{
+			top:32px;
+			left:0;
+			position:absolute;
+			padding:0;
+			border:0;
+		} */
+        #searchform fieldset{
+            position:relative;
+            float:left;
+            padding-top:0px;
+            /*top:35px;
+            left:0;*/
+            border:0;
+        }
+	#quick-links {
+		margin: 0px 15px 0 0;
+		float: left;
+		padding: 0px 15px 0 10px;
+		background:url("/display_images/header_block_divider.gif") right top repeat-y;
+		width:270px;
+	}
+		#quick-links ul {
+			clear:both;
+			padding-top:13px;
+		}
+			#quick-links li {
+				float: left;
+				padding-right: 8px;
+				margin-left:10px;
+				background: url('/display_images/icons/bullet_arrow_white.gif') right 0.7em no-repeat;
+				/*font-size:0.9em;*/
+			}
+				#quick-links li.first {
+					margin-left:0;
+				}
+		#quick-links a {
+			color: white;/* #C2D7EF; | #9cb5d3 */
+			text-decoration: none;
+		}
+			#quick-links a.active {
+				color: white;
+				text-decoration: none;
+			}
+			#quick-links a:hover {
+				color: white;
+				text-decoration:underline;
+			}
+
+#content, #footer {
+	/*margin: 0 2% !important;*/
+}
+
+#header {
+	/*margin:0 !important;
+	padding: 0 2% !important;*/
+}
+
+#content {
+	/*overflow: hidden;*//*removing this allows site to work in Netscape 7.02 on win2k. may need to do this conditionally if issues crop up in modern browsers.*/
+	position:static;
+	z-index:1;
+	clear:both;
+	padding-top:5px;
+}
+
+#breadcrumb li {
+	list-style: none;
+	float: left;
+	font-size: 0.9em;
+	padding-right: 10px;
+	margin-right: 5px;
+	background: url(/display_images/icons/breadcrumb_arrow.gif) right center no-repeat;
+}
+
+.anyquestions{
+	position:fixed;
+	top:2px;
+	right:0px;
+	float:right;
+	display:inline;
+	z-index:5000;
+}
+	.anyquestions a{
+		background:transparent url(/display_images/anyquestions.png) no-repeat;
+		width:32px;
+		height:39px;
+		display:block;
+		text-indent:-5000px;
+	}
+		.anyquestions a:hover{
+			width:129px;
+		}
+
+
+/* MAIN CONTENT AREA */
+
+#tertiary-content, #secondary-content, #primary-content, #primary-content-wide {
+	float: left;
+	width: 21%;
+	margin: 5px 4% 0 0;
+	overflow: hidden;
+}
+
+#tertiary-content {
+	float: left;	
+	margin: 40px 0 20px 0;
+}
+
+#primary-content {
+	width: 50%;
+	overflow: hidden;	
+}
+
+#primary-content-wide {
+	width:75%; 
+	margin-right:0;
+}
+#primary-content-wide #primary-content {
+	width:66%;
+}
+#primary-content-wide #tertiary-content {
+	width:30%;
+	margin-top:0;
+}
+
+body.layout-popup #primary-content, body.layout-full #primary-content{
+	width:100%;
+}
+
+.layout-wide #primary-content {
+	width:74%;
+	margin-right:0;
+}
+
+
+/*FOOTER*/
+
+#footer {
+	border-top: 4px solid #dedede;
+	color: #888;
+	font-size: 90%;
+	height: 1%;
+	clear: both;
+	padding:10px 0 10px 24%;
+}
+	#footer ul {
+		float:left;
+		width:70%;
+		position:relative;
+		line-height:1.1em;
+		margin:0;
+	}
+		#footer ul.extras {
+			font-weight:bold;
+		}
+	#footer ul li {	
+		float: left;
+		padding:0 6px;
+		margin:0;
+		border-left: 1px solid #666;
+	}
+	#footer ul li.first {
+		padding-left:0;
+		border:none;
+	}
+	#footer dl {
+		float:right;
+		position:relative;
+		margin:0;
+		line-height:1.1em;
+	}
+		#footer dt {
+			float: left;
+			margin-right: 5px;
+		}
+		#footer dd {
+			float: left;
+			margin-right: 0px;
+		}

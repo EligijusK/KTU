@@ -1,0 +1,13 @@
+/* billboard */
+#content { width:100%; overflow:hidden; }
+#billboard { width:980px; height:604px; margin:0 auto 52px; }
+#billboard #hero { padding:15px 0 492px; position:relative; z-index:1; }
+
+#billboard #hero hgroup h1,
+#billboard #hero hgroup h2,
+#billboard #hero hgroup h3 { margin-bottom:0; position:relative; z-index:2; }
+
+#billboard #hero .hero-image { position:absolute; z-index:1; top:88px; left:-96px; }
+
+/* promos */
+.promos ul { margin:0 auto; }

@@ -1,0 +1,26 @@
+/* 
+body tag definintion and import of core css files.
+Bryan Gullan
+2005-03-30
+*/
+
+@import url(html.css);
+@import url(structure.css);
+@import url(formatting.css);
+@import url(nav_primary.css);
+@import url(nav_secondary.css);
+
+body {
+	min-width: 772px;
+	width:100%;
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	line-height:1.7em;
+	background-color: #fff;
+	color:#444;
+	text-align:center;
+	padding-bottom:20px;
+	font-size:70%;
+}
+body.layout-popup{
+	min-width:0px;	
+}
