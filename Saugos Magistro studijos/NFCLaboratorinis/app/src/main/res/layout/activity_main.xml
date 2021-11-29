@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp">
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="260sp"
+            android:layout_height="65dp"
+            android:entries="@array/Spinner_items"
+            android:scrollbarSize="5dp"
+            android:spinnerMode="dropdown"
+            android:textAlignment="center"
+            android:textSize="50sp"
+            android:layout_marginLeft="5sp"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:text="Check Ticket" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp">
+
+        <TextView
+            android:layout_width="260sp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5sp"
+            android:gravity="center"
+            android:text="Monthly Ticket Price: 30"
+            android:textAlignment="inherit"
+            android:textSize="20dp">
+
+        </TextView>
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:text="Buy Monthly Ticket" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp">
+
+        <TextView
+            android:layout_width="260sp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5sp"
+            android:gravity="center"
+            android:text="One Hour Ticket Price: 1"
+            android:textAlignment="inherit"
+            android:textSize="20dp"></TextView>
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20sp"
+            android:text="Buy Hour Time Ticket" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp">
+        <EditText
+            android:id="@+id/editTextCreditCount"
+            android:layout_width="260sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:text="10"
+            android:textAlignment="center" />
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:text="Add Credits" />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5sp"
+        android:gravity="center"
+        android:text="Your Credits: 0"
+        android:textAlignment="inherit"
+        android:textSize="30dp">
+
+    </TextView>
+    <TextView
+        android:id="@+id/nfc_contents"
+        android:layout_width="match_parent"
+        android:layout_height="390dp"
+        android:gravity="center"
+        android:text="Add NFC Card"
+        android:textSize="20dp" />
+
+</LinearLayout>

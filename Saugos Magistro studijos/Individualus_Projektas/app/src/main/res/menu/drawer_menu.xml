@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_discounts"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/nav_discount"
+            android:icon="@drawable/ic_discounts"
+            android:title="Discounts" />
+        <item
+            android:id="@+id/nav_ticket_check"
+            android:icon="@drawable/ic_check_tickets"
+            android:title="Ticket check" />
+        <item
+            android:id="@+id/nav_credits"
+            android:icon="@drawable/ic_credits"
+            android:title="Credits" />
+        <item
+            android:id="@+id/nav_tickets"
+            android:icon="@drawable/ic_tickets"
+            android:title="Tickets" />
+        <item
+            android:id="@+id/nav_buy_tickets"
+            android:icon="@drawable/ic_buy_tickets"
+            android:title="Buy Tickets" />
+    </group>
+
+
+</menu>

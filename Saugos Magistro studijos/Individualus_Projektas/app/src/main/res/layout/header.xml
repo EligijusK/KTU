@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="411dp"
+        android:layout_height="325dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitXY"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:srcCompat="@drawable/ic_launcher_background"
+        tools:layout_editor_absoluteX="0dp" />
+    <TextView
+        android:id="@+id/credits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="Credits: 0"
+        app:layout_constraintTop_toBottomOf="@+id/logoImageView"
+        tools:layout_editor_absoluteX="0dp" />
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="414dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="4dp"
+        android:entries="@array/Spinner_items"
+        android:scrollbarSize="5dp"
+        android:spinnerMode="dropdown"
+        android:textAlignment="center"
+        android:textSize="50sp"
+        app:layout_constraintTop_toBottomOf="@+id/credits"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:layout_editor_absoluteX="-3dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
