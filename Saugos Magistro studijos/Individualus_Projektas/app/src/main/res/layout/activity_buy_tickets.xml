@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:fitsSystemWindows="true"
-    tools:openDrawer="starts"
+    tools:openDrawer="start"
     android:orientation="vertical">
 
     <com.google.android.material.navigation.NavigationView
