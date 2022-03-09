@@ -1,0 +1,2 @@
+com/example/nfclaboratorinis/BuildConfig.java
+ com.example.nfclaboratorinis.BuildConfig

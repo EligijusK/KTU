@@ -1,0 +1,233 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.individualusprojektas"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+8-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="31" />
+9-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.NFC" />
+11-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:5:5-62
+11-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:5:22-59
+12
+13    <uses-feature
+13-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:7:5-9:35
+14        android:name="android.hardware.nfc"
+14-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:8:9-44
+15        android:required="true" />
+15-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:9:9-32
+16
+17    <application
+17-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:11:5-126:19
+18        android:allowBackup="true"
+18-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:12:9-35
+19        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+19-->[androidx.core:core:1.3.2] C:\Users\Eligijus\.gradle\caches\transforms-3\fb0c8bb3a9efcf8598631db06e07b955\transformed\core-1.3.2\AndroidManifest.xml:24:18-86
+20        android:debuggable="true"
+21        android:extractNativeLibs="false"
+22        android:icon="@mipmap/ic_launcher"
+22-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:13:9-43
+23        android:label="@string/app_name"
+23-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:14:9-41
+24        android:roundIcon="@mipmap/ic_launcher_round"
+24-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:15:9-54
+25        android:supportsRtl="true"
+25-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:16:9-35
+26        android:testOnly="true"
+27        android:theme="@style/Theme.NFCLaboratorinis" >
+27-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:17:9-54
+28        <activity
+28-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:18:9-34:20
+29            android:name="com.example.individualusprojektas.BuyTickets"
+29-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:19:13-72
+30            android:exported="true"
+30-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:20:13-36
+31            android:launchMode="singleTask" >
+31-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:21:13-44
+32            <intent-filter>
+32-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:23:13-29:29
+33                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+33-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:24:17-77
+33-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:24:25-74
+34
+35                <category android:name="android.intent.category.DEFAULT" />
+35-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:26:17-76
+35-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:26:27-73
+36
+37                <data android:mimeType="text/plain" />
+37-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:28:17-55
+37-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:28:23-52
+38            </intent-filter>
+39
+40            <meta-data
+40-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:31:13-33:59
+41                android:name="android.nfc.action.TECH_DISCOVERED"
+41-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:32:17-66
+42                android:resource="@xml/nfc_tech_filter" />
+42-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:33:17-56
+43        </activity>
+44        <activity
+44-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:35:9-52:20
+45            android:name="com.example.individualusprojektas.Tickets"
+45-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:36:13-69
+46            android:exported="true"
+46-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:37:13-36
+47            android:launchMode="singleTask" >
+47-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:38:13-44
+48            <intent-filter>
+48-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:23:13-29:29
+49                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+49-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:24:17-77
+49-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:24:25-74
+50
+51                <category android:name="android.intent.category.DEFAULT" />
+51-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:26:17-76
+51-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:26:27-73
+52
+53                <data android:mimeType="text/plain" />
+53-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:28:17-55
+53-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:28:23-52
+54            </intent-filter>
+55
+56            <meta-data
+56-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:31:13-33:59
+57                android:name="android.nfc.action.TECH_DISCOVERED"
+57-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:32:17-66
+58                android:resource="@xml/nfc_tech_filter" />
+58-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:33:17-56
+59        </activity>
+60        <activity
+60-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:53:9-69:20
+61            android:name="com.example.individualusprojektas.Credits"
+61-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:54:13-69
+62            android:exported="true"
+62-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:55:13-36
+63            android:launchMode="singleTask" >
+63-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:56:13-44
+64            <intent-filter>
+64-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:23:13-29:29
+65                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+65-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:24:17-77
+65-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:24:25-74
+66
+67                <category android:name="android.intent.category.DEFAULT" />
+67-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:26:17-76
+67-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:26:27-73
+68
+69                <data android:mimeType="text/plain" />
+69-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:28:17-55
+69-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:28:23-52
+70            </intent-filter>
+71
+72            <meta-data
+72-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:31:13-33:59
+73                android:name="android.nfc.action.TECH_DISCOVERED"
+73-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:32:17-66
+74                android:resource="@xml/nfc_tech_filter" />
+74-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:33:17-56
+75        </activity>
+76        <activity
+76-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:70:9-86:20
+77            android:name="com.example.individualusprojektas.CheckTickets"
+77-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:71:13-74
+78            android:exported="true"
+78-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:72:13-36
+79            android:launchMode="singleTask" >
+79-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:73:13-44
+80            <intent-filter>
+80-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:23:13-29:29
+81                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+81-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:24:17-77
+81-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:24:25-74
+82
+83                <category android:name="android.intent.category.DEFAULT" />
+83-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:26:17-76
+83-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:26:27-73
+84
+85                <data android:mimeType="text/plain" />
+85-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:28:17-55
+85-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:28:23-52
+86            </intent-filter>
+87
+88            <meta-data
+88-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:31:13-33:59
+89                android:name="android.nfc.action.TECH_DISCOVERED"
+89-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:32:17-66
+90                android:resource="@xml/nfc_tech_filter" />
+90-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:33:17-56
+91        </activity>
+92        <activity
+92-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:88:9-105:20
+93            android:name="com.example.individualusprojektas.Discounts"
+93-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:89:13-71
+94            android:exported="true"
+94-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:90:13-36
+95            android:launchMode="singleTask" >
+95-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:91:13-44
+96            <intent-filter>
+96-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:23:13-29:29
+97                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+97-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:24:17-77
+97-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:24:25-74
+98
+99                <category android:name="android.intent.category.DEFAULT" />
+99-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:26:17-76
+99-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:26:27-73
+100
+101                <data android:mimeType="text/plain" />
+101-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:28:17-55
+101-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:28:23-52
+102            </intent-filter>
+103
+104            <meta-data
+104-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:31:13-33:59
+105                android:name="android.nfc.action.TECH_DISCOVERED"
+105-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:32:17-66
+106                android:resource="@xml/nfc_tech_filter" />
+106-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:33:17-56
+107        </activity>
+108        <activity
+108-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:106:9-125:20
+109            android:name="com.example.individualusprojektas.MainActivity"
+109-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:107:13-74
+110            android:exported="true" >
+110-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:108:13-36
+111            <intent-filter>
+111-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:109:13-113:29
+112                <action android:name="android.intent.action.MAIN" />
+112-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:110:17-69
+112-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:110:25-66
+113
+114                <category android:name="android.intent.category.LAUNCHER" />
+114-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:112:17-77
+114-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:112:27-74
+115            </intent-filter>
+116            <intent-filter>
+116-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:23:13-29:29
+117                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+117-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:24:17-77
+117-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:24:25-74
+118
+119                <category android:name="android.intent.category.DEFAULT" />
+119-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:26:17-76
+119-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:26:27-73
+120
+121                <data android:mimeType="text/plain" />
+121-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:28:17-55
+121-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:28:23-52
+122            </intent-filter>
+123
+124            <meta-data
+124-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:31:13-33:59
+125                android:name="android.nfc.action.TECH_DISCOVERED"
+125-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:32:17-66
+126                android:resource="@xml/nfc_tech_filter" />
+126-->C:\Users\Eligijus\Desktop\KTU\Saugos Magistro studijos\Individualus_Projektas\app\src\main\AndroidManifest.xml:33:17-56
+127        </activity>
+128    </application>
+129
+130</manifest>

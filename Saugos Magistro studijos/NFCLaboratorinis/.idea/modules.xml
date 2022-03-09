@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/NFC_Laboratorinis.iml" filepath="$PROJECT_DIR$/.idea/modules/NFC_Laboratorinis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/NFC_Laboratorinis.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/NFC_Laboratorinis.app.iml" />
+    </modules>
+  </component>
+</project>
