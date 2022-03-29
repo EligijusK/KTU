@@ -22,10 +22,7 @@
 
 @FOR %%X in ("%DERBY_HOME%") DO SET DERBY_HOME=%%~sX
 
-set CLASSPATH=%DERBY_HOME%\lib\derbyshared.jar;%DERBY_HOME%\lib\derbyclient.jar;%DERBY_HOME%\lib\derbytools.jar
-
-set MODULEPATH=%DERBY_HOME%\lib\derbyshared.jar;%DERBY_HOME%\lib\derbyclient.jar;%DERBY_HOME%\lib\derbytools.jar
-
+set CLASSPATH=%DERBY_HOME%\lib\derbyclient.jar;%DERBY_HOME%\lib\derbytools.jar;%DERBY_HOME%/lib/derbyoptionaltools.jar;%CLASSPATH%
 @goto end
 
 :noderbyhome

@@ -1,0 +1,14 @@
+/* AUTOMATICALLY GENERATED ON Tue Mar 08 17:10:58 EET 2022*/
+/* DO NOT EDIT */
+
+grant {
+  permission jakarta.security.jacc.WebUserDataPermission "/";
+  permission jakarta.security.jacc.WebResourcePermission "/";
+};
+
+grant      principal * * {
+  permission jakarta.security.jacc.WebRoleRefPermission "jsp", "**";
+  permission jakarta.security.jacc.WebRoleRefPermission "", "**";
+  permission jakarta.security.jacc.WebRoleRefPermission "default", "**";
+};
+

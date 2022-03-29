@@ -18,8 +18,8 @@
 -->
 
 <!--
-   Please remember to customize this file for your environment. The defaults for
-   following fields may not be appropriate.
+   Please remember to customize this file for your environment. The defaults for 
+   following fields may not be appropriate.  
    - target-server name, address and port
    - Property security.config in message-security-config
 -->
@@ -27,11 +27,11 @@
 <!DOCTYPE client-container PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Application Client Container//EN" "http://glassfish.org/dtds/glassfish-application-client-container_1_3.dtd">
 
 <client-container>
-  <target-server name="basic-9t91s" address="localhost" port="3700"/>
+  <target-server name="basic-4btf4" address="localhost" port="3700"/>
   <log-service file="" level="WARNING"/>
   <message-security-config auth-layer="SOAP">
     <!-- turned off by default -->
-    <provider-config class-name="com.sun.xml.wss.provider.ClientSecurityAuthModule" provider-id="XWS_ClientProvider" provider-type="client">
+    <provider-config class-name="com.sun.xml.wss.provider.ClientSecurityAuthModule" provider-id="XWS_ClientProvider" provider-type="client"> 
       <request-policy auth-source="content"/>
       <response-policy auth-source="content"/>
       <property name="encryption.key.alias" value="s1as"/>
@@ -39,7 +39,7 @@
       <property name="dynamic.username.password" value="false"/>
       <property name="debug" value="false"/>
     </provider-config>
-    <provider-config class-name="com.sun.xml.wss.provider.ClientSecurityAuthModule" provider-id="ClientProvider" provider-type="client">
+    <provider-config class-name="com.sun.xml.wss.provider.ClientSecurityAuthModule" provider-id="ClientProvider" provider-type="client"> 
       <request-policy auth-source="content"/>
       <response-policy auth-source="content"/>
       <property name="encryption.key.alias" value="s1as"/>
