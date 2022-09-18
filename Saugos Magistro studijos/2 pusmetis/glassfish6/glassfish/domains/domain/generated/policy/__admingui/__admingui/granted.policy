@@ -1,0 +1,44 @@
+/* AUTOMATICALLY GENERATED ON Tue Mar 29 23:51:18 EEST 2022*/
+/* DO NOT EDIT */
+
+grant {
+  permission jakarta.security.jacc.WebUserDataPermission "/theme/META-INF/*", "GET";
+  permission jakarta.security.jacc.WebUserDataPermission "/resource/*", "GET";
+  permission jakarta.security.jacc.WebUserDataPermission "/theme/org/*", "GET";
+  permission jakarta.security.jacc.WebUserDataPermission "/*:/theme/com/*:/theme/org/*:/theme/META-INF/*:/resource/*";
+  permission jakarta.security.jacc.WebUserDataPermission "/theme/com/*", "GET";
+  permission jakarta.security.jacc.WebResourcePermission "/theme/META-INF/*", "GET";
+  permission jakarta.security.jacc.WebResourcePermission "/theme/org/*", "GET";
+  permission jakarta.security.jacc.WebResourcePermission "/theme/com/*", "GET";
+  permission jakarta.security.jacc.WebResourcePermission "/resource/*", "GET";
+};
+
+grant      principal * * {
+  permission jakarta.security.jacc.WebRoleRefPermission "jsp", "**";
+  permission jakarta.security.jacc.WebRoleRefPermission "", "**";
+  permission jakarta.security.jacc.WebRoleRefPermission "ThemeServlet", "**";
+  permission jakarta.security.jacc.WebRoleRefPermission "FacesServlet", "**";
+  permission jakarta.security.jacc.WebRoleRefPermission "DownloadServlet", "**";
+  permission jakarta.security.jacc.WebRoleRefPermission "default", "**";
+};
+
+grant      principal org.glassfish.security.common.Group "asadmin" {
+  permission jakarta.security.jacc.WebRoleRefPermission "default", "admin";
+  permission jakarta.security.jacc.WebRoleRefPermission "FacesServlet", "admin";
+  permission jakarta.security.jacc.WebRoleRefPermission "DownloadServlet", "admin";
+  permission jakarta.security.jacc.WebRoleRefPermission "ThemeServlet", "admin";
+  permission jakarta.security.jacc.WebRoleRefPermission "jsp", "admin";
+  permission jakarta.security.jacc.WebRoleRefPermission "", "admin";
+  permission jakarta.security.jacc.WebResourcePermission "/*:/theme/com/*:/theme/org/*:/theme/META-INF/*:/resource/*";
+};
+
+grant      principal org.glassfish.security.common.PrincipalImpl "admin" {
+  permission jakarta.security.jacc.WebRoleRefPermission "default", "admin";
+  permission jakarta.security.jacc.WebRoleRefPermission "FacesServlet", "admin";
+  permission jakarta.security.jacc.WebRoleRefPermission "DownloadServlet", "admin";
+  permission jakarta.security.jacc.WebRoleRefPermission "ThemeServlet", "admin";
+  permission jakarta.security.jacc.WebRoleRefPermission "jsp", "admin";
+  permission jakarta.security.jacc.WebRoleRefPermission "", "admin";
+  permission jakarta.security.jacc.WebResourcePermission "/*:/theme/com/*:/theme/org/*:/theme/META-INF/*:/resource/*";
+};
+

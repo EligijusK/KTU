@@ -1,0 +1,45 @@
+/* AUTOMATICALLY GENERATED ON Wed Mar 30 00:00:56 EEST 2022*/
+/* DO NOT EDIT */
+
+grant {
+  permission jakarta.security.jacc.WebUserDataPermission "/SellTickets";
+  permission jakarta.security.jacc.WebUserDataPermission "/Admin";
+  permission jakarta.security.jacc.WebUserDataPermission "/User/*";
+  permission jakarta.security.jacc.WebUserDataPermission "/Tickets";
+  permission jakarta.security.jacc.WebUserDataPermission "/Login";
+  permission jakarta.security.jacc.WebUserDataPermission "/:/Tickets:/Login:/User/*:/SellTickets:/Admin";
+  permission jakarta.security.jacc.WebResourcePermission "/Admin";
+  permission jakarta.security.jacc.WebResourcePermission "/:/Tickets:/Login:/User/*:/SellTickets:/Admin";
+  permission jakarta.security.jacc.WebResourcePermission "/Tickets";
+};
+
+grant      principal * * {
+  permission jakarta.security.jacc.WebRoleRefPermission "jsp", "**";
+  permission jakarta.security.jacc.WebRoleRefPermission "", "**";
+  permission jakarta.security.jacc.WebRoleRefPermission "Tickets", "**";
+  permission jakarta.security.jacc.WebRoleRefPermission "SellTickets", "**";
+  permission jakarta.security.jacc.WebRoleRefPermission "Login", "**";
+  permission jakarta.security.jacc.WebRoleRefPermission "default", "**";
+};
+
+grant      principal org.glassfish.security.common.Group "User" {
+  permission jakarta.security.jacc.WebRoleRefPermission "", "User";
+  permission jakarta.security.jacc.WebRoleRefPermission "default", "User";
+  permission jakarta.security.jacc.WebRoleRefPermission "Login", "User";
+  permission jakarta.security.jacc.WebRoleRefPermission "jsp", "User";
+  permission jakarta.security.jacc.WebRoleRefPermission "SellTickets", "User";
+  permission jakarta.security.jacc.WebRoleRefPermission "Tickets", "User";
+  permission jakarta.security.jacc.WebResourcePermission "/User/*";
+  permission jakarta.security.jacc.WebResourcePermission "/SellTickets";
+  permission jakarta.security.jacc.WebResourcePermission "/Login";
+};
+
+grant      principal org.glassfish.security.common.Group "AuthUser" {
+  permission jakarta.security.jacc.WebRoleRefPermission "", "AuthUser";
+  permission jakarta.security.jacc.WebRoleRefPermission "SellTickets", "AuthUser";
+  permission jakarta.security.jacc.WebRoleRefPermission "default", "AuthUser";
+  permission jakarta.security.jacc.WebRoleRefPermission "Tickets", "AuthUser";
+  permission jakarta.security.jacc.WebRoleRefPermission "Login", "AuthUser";
+  permission jakarta.security.jacc.WebRoleRefPermission "jsp", "AuthUser";
+};
+

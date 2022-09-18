@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  apache:
+    container_name: apache-php
+    image: nimmis/apache-php5:latest
+    volumes:
+      - /var/www/htmls/:/var/www/html
+    links:
+      - mysql
+    ports:
+      - 80:80
+    expose:
+      - 80
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    environment:
+      MYSQL_PORT_3306_TCP: 3306
+      MYSQL_DATABASE: B1044
+      MYSQL_ROOT_PASSWORD: NERAPASS123
+    expose:
+      - 3306
+
+    
